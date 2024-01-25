@@ -1,3 +1,5 @@
+use onedaySeed;
+
 create table host (
   host_num varchar(20) PRIMARY KEY,
   host_name varchar(20),
@@ -54,7 +56,7 @@ create table payment(
   order_id int,
   payment_date varchar(100),
   amount int,
-  FOREIGN KEY (order_id) references order(order_id)
+  FOREIGN KEY (order_id) references orders(order_id)
 );
 
 create table lesson(
@@ -68,6 +70,17 @@ create table lesson(
   lesson_status varchar(255),
   lesson_detail_info text,
   FOREIGN KEY (host_num) references host(host_num)
+);
+
+create table lesson_img(
+  img_id int PRIMARY KEY,
+  lesson_id int,
+  host_num varchar(100),
+  img_name varchar(100),
+  origin_img_name varchar(100),
+  img_url varchar(100),
+  rep_img_yn varchar(100),
+  FOREIGN KEY (lesson_id) references lesson(lesson_id)
 );
 
 -- 1. order 는 mysql에 있는 명령어 중 하나이기에 테이블 이름으로 쓸 수 없어 orders로 변경
