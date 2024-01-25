@@ -4,6 +4,7 @@
 #### OnedaySeed를 통해 다양한 취미 수업을 등록하고(Host), 등록된 수업(User)을 수강할 수 있습니다.
 
 # 현재 상황
+- [x] SpringBoot, React 연동
 - [x] 마이 페이지(user)
 - [x] 장바구니
 ---
