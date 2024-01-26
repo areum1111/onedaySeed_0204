@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import BasicLaylout from "../../layouts/BasicLayout";
-import "./LoginForm.css"
+import "./loginForm.css"
 
 const HostLoginPage = () => {
 

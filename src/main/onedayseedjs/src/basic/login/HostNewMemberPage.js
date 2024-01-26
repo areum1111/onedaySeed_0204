@@ -6,7 +6,7 @@ class HostNewMemberPage extends Component{
   render(){
     return(
       <>
-      <div class="loginBox">
+      <div className="loginBox">
         <h1>회원가입</h1>
         <form>
             <span className="formName">사업자번호</span>

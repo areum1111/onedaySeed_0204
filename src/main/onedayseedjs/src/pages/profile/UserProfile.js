@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './profile.css';
+import './userProfile.css';
 import BasicLayout from "../../layouts/BasicLayout"
 import axios from "axios";
 
@@ -68,14 +67,14 @@ function Profile() {
     return (
       <div>
         <BasicLayout>
-        <h1>프로필 관리</h1>
-        <img src="/profile.jpg" width="200px" height="200px" alt="프로필 이미지" />
-  
+        <h1 id="title">프로필 관리</h1>
+        {/* <img src="/profile.jpg" width="200px" height="200px" alt="프로필 이미지" /> */}
+        
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formFileSm" className="mb-3">
+          {/* <Form.Group controlId="formFileSm" className="mb-3">
             <Form.Label>사진 수정</Form.Label>
             <Form.Control type="file" size="sm" />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>아이디</Form.Label>
             <Form.Control type="text" name="userId" value={users.userId} disabled />
@@ -110,7 +109,7 @@ function Profile() {
               onChange={handleInputChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button id="modify" variant="primary" type="submit">
             수정
           </Button>
         </Form>

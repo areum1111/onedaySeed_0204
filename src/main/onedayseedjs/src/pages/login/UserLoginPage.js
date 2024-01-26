@@ -1,6 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import BasicLaylout from "../../layouts/BasicLayout";
-import "./LoginForm.css"
+import "./loginForm.css"
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {login, loginPostAsync} from "../../slices/loginSlice";

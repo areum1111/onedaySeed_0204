@@ -1,11 +1,14 @@
 package com.store.onedaySeed.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.store.onedaySeed.dto.UserMemberFormDto;
 import com.store.onedaySeed.entity.User;
 import com.store.onedaySeed.service.UserMemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping
@@ -82,6 +88,30 @@ public class UserMemberController {
 //          return productService.getList(pageRequestDTO);
 //
 //      }
+
+
+
+//    @PostMapping(value = "/api/userLogin")
+//    public JsonNod login(@RequestBody User user, HttpServletResponse res)
+//            throws JsonProcessingException {
+//        Logger.info("user: " + user.getUserId());
+//        ObjectMapper mapper = new ObjectMapper();
+//        String tokenJson = null;
+//        if (userService.isLogin(userVO)) {
+//            String refreshToken = jwsService.getRefreshToken(key);
+//            String accessToken = jwsService.createJws(key, userVO);
+//            Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+//            res.addCookie(refreshCookie);
+//            tokenJson = "{\"accessToken\":\"" + accessToken + "\"}";
+//        } else {
+//            tokenJson = "{\"message\":" + "\"LOGIN_FAIL\"}";
+//        }
+//        JsonNode json = mapper.readTree(tokenJson);
+//        return json;
+//    }
+
+
+
 
 
 }

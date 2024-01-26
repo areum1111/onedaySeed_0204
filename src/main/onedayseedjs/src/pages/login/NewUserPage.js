@@ -1,6 +1,6 @@
 import BasicLaylout from "../../layouts/BasicLayout";
 import React, {useEffect, useState} from "react";
-import "./LoginForm.css"
+import "./loginForm.css"
 import axios from "axios";
 
 const NewUserPage=()=>{

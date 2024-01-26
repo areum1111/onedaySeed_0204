@@ -1,6 +1,6 @@
 package com.store.onedaySeed.config;
 
-import com.store.onedaySeed.repository.security.filter.JWTCheckFilter;
+//import com.store.onedaySeed.repository.security.filter.JWTCheckFilter;
 import com.store.onedaySeed.repository.security.handler.APILoginFailHandler;
 import com.store.onedaySeed.repository.security.handler.APILoginSuccessHandler;
 import com.store.onedaySeed.repository.security.handler.CustomAccessDeniedHandler;
@@ -54,8 +54,8 @@ public class SecurityConfig {
            config.failureHandler(new APILoginFailHandler());
        });
 
-       http.addFilterBefore(new JWTCheckFilter(),
-               UsernamePasswordAuthenticationFilter.class); //JWT 체크
+//       http.addFilterBefore(new JWTCheckFilter(),
+//               UsernamePasswordAuthenticationFilter.class); //JWT 체크
 
         http.exceptionHandling(config -> {config.accessDeniedHandler(new CustomAccessDeniedHandler());
 

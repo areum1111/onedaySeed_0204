@@ -1,7 +1,7 @@
 
 import BasicLaylout from "../../layouts/BasicLayout";
 import React from "react";
-import "./LoginForm.css"
+import "./loginForm.css"
 
 const NewHostPage = () =>{
 

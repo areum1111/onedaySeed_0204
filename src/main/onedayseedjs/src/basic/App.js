@@ -6,7 +6,7 @@ import UserLogin from './login/UserLogin';
 import HostLogin from './login/HostLogin';
 // import UserNewMemberPage from './login/UserNewMemberPage';
 import HostNewMemberPage from './login/HostNewMemberPage';
-import PurchaseHistoryPage from './purchaseHistory/PurchaseHistoryPage';
+import PurchaseHistoryPage from '../pages/Order/PurchaseHistoryPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'

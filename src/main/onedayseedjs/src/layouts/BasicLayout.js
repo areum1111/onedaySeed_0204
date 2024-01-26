@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./BasicLayout.css"
+import "./basicLayout.css"
 import BasicMenu from "../components/menus/BasicMenu.js";
 import {useSelector} from "react-redux";
 import useCustomLogin from "../hooks/useCustomLogin";
@@ -19,23 +19,23 @@ const BasicLayout = ({children}) => {
     <>
     
     <header>
-    <nav class="navbar navbar-expand-lg" id="nav" >
-    <div class="container-fluid" id="nav-form">
+    <nav className="navbar navbar-expand-lg" id="nav" >
+    <div className="container-fluid" id="nav-form">
       <Link to = {'/'} className="navbar-brand" id='logo'>OnedaySeed</Link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      < ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <Link to={'/about'} class="nav-link active" aria-current="page" >About Us</Link>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      < ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <Link to={'/about'} className="nav-link active" aria-current="page" >About Us</Link>
         </li>
 
           {/*로그인한 사용자에게만 보이게*/}
           {loginState.id ?
           <>
-        <li class="nav-item">
-          <Link to={'/mypage'} class="nav-link">My Page</Link>
+        <li className="nav-item">
+          <Link to={'/mypage'} className="nav-link">My Page</Link>
         </li>
       </>
         :<></>}
@@ -43,7 +43,7 @@ const BasicLayout = ({children}) => {
           {/*로그인한 사용자에게만 보이게*/}
           {loginState.id ?
               <>
-                  <li class="nav-item">
+                  <li className="nav-item">
                       <a onClick={handleClickLogout} className="nav-link">Logout</a>
                   </li>
               </>
@@ -54,7 +54,7 @@ const BasicLayout = ({children}) => {
         {/* 로그인 전 사용자에게 '로그인' 보이게 */}
           { ! loginState.id?
               <>
-        <li class="nav-item">
+        <li className="nav-item">
           <Link to={"/user/login"} className="nav-link disabled" aria-disabled="true" >Login</Link>
         </li>
               </>: <></> }

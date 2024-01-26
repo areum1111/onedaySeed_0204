@@ -1,7 +1,7 @@
 import BasicLaylout from "../layouts/BasicLayout";
 import { Link } from 'react-router-dom';
 import '../basic/video/cupcakes.mp4';
-import './Main.css'
+import './main.css'
 
 const MainPage = ()=>{
   return (

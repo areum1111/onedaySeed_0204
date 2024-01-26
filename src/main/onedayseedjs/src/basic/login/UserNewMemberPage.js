@@ -66,7 +66,7 @@ class UserNewMemberPage extends Component{
   render(){
     return(
       
-      <div class="loginBox">
+      <div className="loginBox">
         <h1>회원가입</h1>
         
             <span className="formName">아이디</span>
