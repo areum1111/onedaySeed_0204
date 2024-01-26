@@ -2,6 +2,7 @@ package com.store.onedaySeed.entity;
 
 import com.store.onedaySeed.constant.LessonStatus;
 import exception.OutOfLimitedException;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class Lesson extends BaseEntity{
+public class Lesson extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,24 +26,30 @@ public class Lesson extends BaseEntity{
     @JoinColumn(name = "host_num")
     private Host host;
 
-    @Column(nullable = false, name ="lesson_name")
+    @Column(nullable = false, name = "lesson_name")
     private String lessonName;
 
-    @Column(nullable = false,  name ="lesson_category")
+    @Column(nullable = false, name = "lesson_category")
     private String lessonCategory;
 
-    @Column(nullable = false , name="lesson_schedule")
+    @Column(nullable = false, name = "lesson_schedule")
     private String lessonSchedule;
     //LocalDateTime,Long ?
 
-    @Column(nullable = false, name ="fee")
+    @Column(nullable = false, name = "price")
     private Long price;
 
-    @Column(nullable = false , name ="lesson_limited")
+    @Column(nullable = false, name = "lesson_limited")
     private Integer lessonLimited; //인원수 제한
 
     @Enumerated(EnumType.STRING)
     private LessonStatus lessonStatus;
+
+//    @Column(nullable = false, name = "lesson_rep_img")
+//    private String lessonRepImg;
+//
+//    @Column(nullable = false, name = "lesson_detail_img")
+//    private String lessonDetailImg;
 
     //재고 감소
     public void removeLimited(int lessonLimited) throws OutOfLimitedException {

@@ -1,6 +1,6 @@
 package com.store.onedaySeed.config;
 
-import com.store.onedaySeed.repository.security.filter.JWTCheckFilter;
+//import com.store.onedaySeed.repository.security.filter.JWTCheckFilter;
 import com.store.onedaySeed.repository.security.handler.APILoginFailHandler;
 import com.store.onedaySeed.repository.security.handler.APILoginSuccessHandler;
 import com.store.onedaySeed.repository.security.handler.CustomAccessDeniedHandler;
@@ -54,8 +54,8 @@ public class SecurityConfig {
            config.failureHandler(new APILoginFailHandler());
        });
 
-       http.addFilterBefore(new JWTCheckFilter(),
-               UsernamePasswordAuthenticationFilter.class); //JWT 체크
+//       http.addFilterBefore(new JWTCheckFilter(),
+//               UsernamePasswordAuthenticationFilter.class); //JWT 체크
 
         http.exceptionHandling(config -> {config.accessDeniedHandler(new CustomAccessDeniedHandler());
 
@@ -68,9 +68,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.addAllowedOrigin("*"); // 변경된 부분
         configuration.setAllowedMethods(Arrays.asList("HEAD","GET","POST","PUT","DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization","Cache-Control","Context-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization","Cache-Control","Content-Type")); // 변경된 부분
         configuration.setAllowCredentials(true);
 
 //        /* 응답 헤더 설정 추가*/

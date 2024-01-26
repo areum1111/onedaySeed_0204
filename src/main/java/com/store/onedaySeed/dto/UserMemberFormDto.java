@@ -34,11 +34,19 @@ public class UserMemberFormDto {
 
     }
 
-    public UserMemberFormDto(String userId, String userName, String userPhoneNum, String userPassword, Role role) {
+//    public UserMemberFormDto(String userId, String userName, String userPhoneNum, String userPassword, Role role) {
+//        this.userId = userId;
+//        this.userName = userName;
+//        this.userPhoneNum = userPhoneNum;
+//        this.userPassword = userPassword;
+//        this.role = role;
+//    }
+
+    public UserMemberFormDto(String userId, String userPassword, String userName, String userPhoneNum, Role role) {
         this.userId = userId;
+        this.userPassword = userPassword;
         this.userName = userName;
         this.userPhoneNum = userPhoneNum;
-        this.userPassword = userPassword;
         this.role = role;
     }
 
