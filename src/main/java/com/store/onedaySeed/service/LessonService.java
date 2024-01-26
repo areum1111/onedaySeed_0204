@@ -21,4 +21,10 @@ public class LessonService {
         return lessonRepository.save(lesson);
     }
 
+
+    public Lesson findLesson(Long lessonId){
+        return lessonRepository.findById(lessonId)
+                .orElseThrow(NullPointerException::new);
+    }
+
 }

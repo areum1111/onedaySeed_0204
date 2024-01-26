@@ -17,17 +17,26 @@ import java.io.File;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(value = "/api/lesson")
+@RequestMapping(value = "/host")
 @RequiredArgsConstructor
 public class LessonController {
 
     private final LessonService lessonService;
 
-    @PostMapping(value = "new")
-    public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson) {
-        Lesson savedLesson = lessonService.saveLesson(lesson);
-        return ResponseEntity.ok(savedLesson);
+    
+    @PostMapping(value = "lesson/new")
+    public ResponseEntity<Lesson> createLesson(@RequestBody LessonDto lessonDto) {
+        Lesson lesson = new Lesson(lessonDto);
+
+        return ResponseEntity.ok(lessonService.saveLesson(lesson));
     }
+
+//    @GetMapping(value = "/lesson/detail)
+//    public Long findOneLesson(@RequestPart("lessonId") Long lessonId){
+//
+//    }
+
+
 
 
 //    @PostMapping(value = "new")

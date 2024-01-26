@@ -11,47 +11,29 @@ function LessonForm() {
   const [lessonLimited, setLessonLimited] = useState("");
   const [lessonSchedule, setLessonSchedule] = useState();
   const [lessonStatus, setLessonStatus] = useState("");
-  const [lessonRepImg, setLessonRepImg] = useState(null);
-  const [lessonDetailImg, setLessonDetailImg] = useState(null);
 
   const handleInputChange = (e, setValue) => {
     // input의 현재 값에 접근
     const inputValue = e.target.value;
-    console.log("입력값 불러: ", inputValue)
+
     // 상태 업데이트
     setValue(inputValue);
-  };
-
-  const handleFileChange = (e, setFile) => {
-    // 파일 선택 시
-    const file = e.target.files;
-    console.log("파일 이름 불러", file)
-
-    // 상태 업데이트
-    setFile(file);
-  };
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 기본 폼 제출 방지
 
-    const formData = new FormData();
-    formData.append('lessonName', lessonName);
-    formData.append('lessonCategory', lessonCategory);
-    formData.append('price', price);
-    formData.append('lessonLimited', lessonLimited);
-    formData.append('lessonSchedule', lessonSchedule);
-    formData.append('lessonStatus', lessonStatus);
-    formData.append('lessonRepImg', lessonRepImg);
-    formData.append('lessonDetailImg', lessonDetailImg);
+    const dataToSend = {
+      lessonName,
+      lessonCategory,
+      price,
+      lessonLimited,
+      lessonSchedule,
+      lessonStatus,
+    };
 
-
-
-    console.log("진짜 개짜증나네: ", formData)
-    axios.post('/api/lesson/new', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    axios.post('/api/lesson/new', dataToSend
+    )
       .then(response => {
         console.log('서버로부터의 응답:', response.data);
       })
@@ -60,32 +42,12 @@ function LessonForm() {
       });
   }
 
-  // const handleFileChange = (e) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData();
-  //   formData.append('lessonRepImg', lessonRepImg);
-  //   formData.append('lessonDetailImg', lessonDetailImg);
-
-  //   axios.post('/api/lesson/new', formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data',
-  //     },
-  //   })
-  //     .then(response => {
-  //       console.log('서버로부터의 응답:', response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('에러 발생:', error);
-  //     });
-  // };
-
   return (
     <div>
       <BasicLayout>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
 
-          <form onSubmit={handleSubmit} encType='multipart/form-data'>
+          <form onSubmit={handleSubmit} >
             <h1>클래스 등록 페이지입니다</h1><br></br>
             <div>
               <label>
@@ -156,20 +118,7 @@ function LessonForm() {
               </label>
             </div>
 
-            <div>
-              <label>
-                <h4>이미지 등록</h4>
-                - 썸네일 사진<br />
-                <input type='file' name='lessonRepImg' onChange={(e) => handleFileChange(e, setLessonRepImg)} defaultValue="" /><br />
-              </label>
-              <label>
-                - 상세 설명 사진<br />
-                <input type='file' name='lessonDetailImg' onChange={(e) => handleFileChange(e, setLessonDetailImg)} defaultValue="" />
-              </label>
-            </div>
-            <br />
-
-            <button type='submit'>저장</button>
+            <Button type='submit'>저장</Button>
 
           </form>
         </div>

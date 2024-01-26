@@ -1,6 +1,7 @@
 package com.store.onedaySeed.entity;
 
 import com.store.onedaySeed.constant.LessonStatus;
+import com.store.onedaySeed.dto.LessonDto;
 import exception.OutOfLimitedException;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -44,6 +45,16 @@ public class Lesson extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private LessonStatus lessonStatus;
+
+    public Lesson(LessonDto lessonDto) {
+        super();
+        this.lessonName = lessonDto.getLessonName();
+        this.lessonCategory = lessonDto.getLessonCategory();
+        this.lessonSchedule = lessonDto.getLessonSchedule();
+        this.price = lessonDto.getPrice();
+        this.lessonLimited = lessonDto.getLessonLimited();
+        this.lessonStatus = lessonDto.getLessonStatus();
+    }
 
 //    @Column(nullable = false, name = "lesson_rep_img")
 //    private String lessonRepImg;

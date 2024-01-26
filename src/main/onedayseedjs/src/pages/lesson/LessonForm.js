@@ -32,7 +32,7 @@ function LessonForm() {
       lessonStatus,
     };
 
-    axios.post('/api/lesson/new', dataToSend
+    axios.post('/host/lesson/new', dataToSend
     )
       .then(response => {
         console.log('서버로부터의 응답:', response.data);
