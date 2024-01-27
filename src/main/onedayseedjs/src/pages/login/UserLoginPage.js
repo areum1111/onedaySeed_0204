@@ -160,7 +160,7 @@ const UserLoginPage =()=>{
       <>
       <BasicLaylout>
       <div className="loginBox">
-        <h1>로그인</h1>
+        <h1><b>로그인</b></h1>
 
             <Form onSubmit={handleSubmit}>
             <span className="formName">아이디</span>
@@ -182,8 +182,8 @@ const UserLoginPage =()=>{
 
       <span className="choiceNewmember">아직 회원이 아니신가요?</span>
       <div className="newmember">
-          <button><Link to={"/newHost"}>호스트 회원가입</Link></button>
-          <button><Link to={"/newUser"}>게스트 회원가입</Link></button>
+          <button className="another-btn"><Link to={"/newHost"} >호스트 회원가입</Link></button>
+          <button className="another-btn"><Link to={"/newUser"} >게스트 회원가입</Link></button>
       </div>
 
       </div>

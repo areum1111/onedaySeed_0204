@@ -19,35 +19,35 @@ const BasicLayout = ({children}) => {
     <>
     
     <header>
-    <nav class="navbar navbar-expand-lg" id="nav" >
-    <div class="container-fluid" id="nav-form">
-      <Link to = {'/'} className="navbar-brand" id='logo'>OnedaySeed</Link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <nav className="navbar navbar-expand-lg" id="nav" >
+    <div className="container-fluid" id="nav-form">
+      <a href={'/'} className="navbar-brand" id='logo'>OnedaySeed</a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      < ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <Link to={'/about'} class="nav-link active" aria-current="page" >About Us</Link>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      < ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <a href={'/about'} className="nav-link active" aria-current="page" >About Us</a>
         </li>
 
-          {/*로그인한 사용자에게만 보이게*/}
+          {/* 로그인한 사용자에게만 보이게
           {loginState.id ?
-          <>
-        <li class="nav-item">
-          <Link to={'/mypage'} class="nav-link">My Page</Link>
+          <> */}
+        <li className="nav-item">
+          <a href={'/mypage'} className="nav-link">My Page</a>
         </li>
-      </>
-        :<></>}
+      {/* </>
+        :<></>} */}
 
-          {/*로그인한 사용자에게만 보이게*/}
+          {/* 로그인한 사용자에게만 보이게
           {loginState.id ?
-              <>
-                  <li class="nav-item">
-                      <a onClick={handleClickLogout} className="nav-link">Logout</a>
+              <> */}
+                  <li className="nav-item">
+                      <a className="nav-link">Logout</a>
                   </li>
-              </>
-              :<></>}
+              {/* </>
+              :<></>} */}
 
 
 
@@ -55,13 +55,11 @@ const BasicLayout = ({children}) => {
           { ! loginState.id?
               <>
         <li class="nav-item">
-          <Link to={"/user/login"} className="nav-link disabled" aria-disabled="true" >Login</Link>
+          <a href={"/user/login"} className="nav-link disabled" aria-disabled="true" >Login</a>
         </li>
               </>: <></> }
-
-          
       </ul>
-      <form class="d-flex" role="search">
+      <form className="d-flex" role="search">
         <input className="form-control me-2 " id="search-input" type="search" placeholder="Search" aria-label="Search" />
         <button className="btn btn-outline-success " id='search-btn' type="submit">Search</button>
       </form>

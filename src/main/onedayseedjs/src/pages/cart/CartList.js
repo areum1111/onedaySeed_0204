@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import CloseButton from 'react-bootstrap/CloseButton';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './cartList.css';
 
 import axios from "axios";
@@ -115,8 +114,8 @@ function CartList({ item, onItemDelete }) {
                     <Form.Label column sm="3">가격</Form.Label>
                     <Col sm="9"><Form.Control plaintext readOnly value={totalPrice}/></Col>
                 </Form.Group>
-                <Button variant="primary" type="submit">수정</Button>
-                <Button variant="success" className="mt-3" onClick={handleOrder}>결제</Button>
+                <Button id="modify" variant="primary" type="submit">수정</Button>
+                <Button id="order" variant="success" onClick={handleOrder}>결제</Button>
             </Form>
         </div>
     );

@@ -73,7 +73,7 @@ const NewUserPage=()=>{
       <BasicLaylout>
 
       <div className="loginBox">
-        <h1>회원가입</h1>
+        <h1><b>회원가입</b></h1>
           <Form onSubmit={handleSubmit}>
             <span className="formName">아이디</span>
             <input className="formInfo" type="text" id="id_val" placeholder="아이디를 입력해주세요" onChange={handleInputChange} value={newMember.userId}/>

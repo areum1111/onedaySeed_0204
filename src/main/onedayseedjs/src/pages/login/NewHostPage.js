@@ -72,19 +72,19 @@ const NewHostPage = () =>{
       <>
       <BasicLaylout>
       <div class="loginBox">
-        <h1>회원가입</h1>
+        <h1><b>회원가입</b></h1>
         <Form onSubmit={handleSubmit}>
             <span className="formName">사업자번호</span>
-            <input className="formInfo" type="text" onChange={handleInputChange} value={newMember.hostNum} />
+            <input className="formInfo" type="text" placeholder="사업자번호를 입력해주세요" onChange={handleInputChange} value={newMember.hostNum} />
        
             <span className="formName">비밀번호</span>
-            <input className="formInfo" type="text" onChange={handleInputChange} value={newMember.password}/>
+            <input className="formInfo" type="text" placeholder="비밀번호를 입력해주세요" onChange={handleInputChange} value={newMember.password}/>
 
             <span className="formName">상호명</span>
-            <input className="formInfo" type="text" onChange={handleInputChange} value={newMember.name}/>
+            <input className="formInfo" type="text" placeholder="상호명을 입력해주세요" onChange={handleInputChange} value={newMember.name}/>
 
             <span className="formName">전화번호</span>
-            <input className="formInfo" type="text" onChange={handleInputChange} value={newMember.phoneNum}/>
+            <input className="formInfo" type="text" placeholder="전화번호를 입력해주세요" onChange={handleInputChange} value={newMember.phoneNum}/>
         
         <div className="loginBtn">
           <button type="submit" >회원가입</button>

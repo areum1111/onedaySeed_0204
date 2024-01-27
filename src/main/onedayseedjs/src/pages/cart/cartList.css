@@ -1,6 +1,15 @@
+#title {
+    text-align: center;
+    color: #76BA99;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
 .all {
-    margin: 30px;
-    display:inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 img {
@@ -8,22 +17,22 @@ img {
 }
 
 .thumb {
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
     height: 280px;
     width: 300px;
     float: left;
 }
 
 form {
-    align-items: center;
-    border-style: solid;
+    /* align-items: center; */
     border-width: 1px;
-    border-color: black;
     height: 280px;
     width: 400px;
     float: left;
+    text-align: center;
+}
+
+Form.Label {
+    font-weight: bold;
 }
 
 .closeButton {
@@ -37,4 +46,22 @@ form {
 .caret {
     float: right;
     margin-right: 10px;
+}
+
+#btn {
+    margin: 10px;
+    background-color: #70AF85;
+    border: none;
+}
+
+#modify {
+    margin-left: 10px;
+    background-color: #70AF85;
+    border: none;
+}
+
+#order {
+    margin-left: 10px;
+    background-color: #AA8976;
+    border: none;
 }

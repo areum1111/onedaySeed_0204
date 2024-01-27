@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CartList from './CartList';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './cartList.css';
 import axios from "axios";
 import BasicLayout from "../../layouts/BasicLayout"
 
@@ -36,12 +36,13 @@ function Cart() {
     return (
         <div>
             <BasicLayout>
-            <h1>장바구니</h1>
+            <h1 id="title">장바구니</h1>
             {/* key에는 고유값 */}
             {cartItems.map((item) => (
                 <React.Fragment key={item.id}>
+                  <hr />
                 <CartList onItemDelete={onItemDelete} item={item} />
-                <br />
+                  <br />
                 </React.Fragment>
             ))}
             </BasicLayout>
