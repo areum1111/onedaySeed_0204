@@ -22,10 +22,13 @@ const HostLoginPage = () => {
     }, []);
 
 
-    const handleInputChange = (e) =>{
-        setLogin({[e.target.name]:e.target.value});
-        console.log(setLogin);
-    }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setLogin((prevLogin) => ({
+            ...prevLogin,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = async (e) =>{
         // 새로고침 방지
@@ -73,10 +76,10 @@ const HostLoginPage = () => {
 
                 <Form onSubmit={handleSubmit}>
                 <span className="formName">사업자번호</span>
-                <input className="formInfo" type="text" id="id_val" onChange={handleInputChange} value={login.hostNum}placeholder="사업자번호를 입력해주세요" />
+                <input className="formInfo" type="text" id="id_val" name="hostNum" onChange={handleInputChange} value={login.hostNum} placeholder="사업자번호를 입력해주세요" />
 
                 <span className="formName">비밀번호</span>
-                <input className="formInfo" type="password" id="password_val" onChange={handleInputChange} value={login.password}placeholder="비밀번호를 입력해주세요"/>
+                <input className="formInfo" type="password" id="password_val" name="password"  onChange={handleInputChange} value={login.password}placeholder="비밀번호를 입력해주세요"/>
 
             <div className="loginBtn">
                 <button className="s_bt" type="submit" >로그인</button>

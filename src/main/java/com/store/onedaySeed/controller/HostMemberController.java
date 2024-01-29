@@ -1,17 +1,17 @@
 package com.store.onedaySeed.controller;
 
-import com.store.onedaySeed.dto.UserDto;
+import com.store.onedaySeed.dto.HostLoginDto;
+import com.store.onedaySeed.dto.HostMemberFormDto;
 import com.store.onedaySeed.dto.UserLoginDto;
 import com.store.onedaySeed.dto.UserMemberFormDto;
+import com.store.onedaySeed.entity.Host;
 import com.store.onedaySeed.entity.User;
-import com.store.onedaySeed.service.UserMemberService;
-import com.store.onedaySeed.service.UserService;
+import com.store.onedaySeed.service.HostMemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,24 +25,24 @@ import java.util.Map;
 @RequestMapping
 @RequiredArgsConstructor
 @Log4j2
-public class UserMemberController {
+public class HostMemberController {
 
-    private final UserMemberService userMemberService;
+
+    private final HostMemberService hostMemberService;
     private final PasswordEncoder passwordEncoder;
 
-
-    @GetMapping(value = "/api/userNew")
+    @GetMapping("/api/hostNew")
     @ResponseBody
-    private String userNewGet(Model model){
+    public String hostNew(Model model){
 
-        model.addAttribute("userMemberFormDto",new UserMemberFormDto());
+        model.addAttribute("hostMemberFormDto",new HostMemberFormDto());
 
-        return "userNewGet";
+
+        return "newHostGET";
     }
 
-
-    @PostMapping("/api/userNew")
-    public ResponseEntity<?> userNew(@RequestBody @Valid UserMemberFormDto userMemberFormDto,BindingResult bindingResult) {
+    @PostMapping ("/api/hostNew")
+    public ResponseEntity<?> userNew(@RequestBody @Valid HostMemberFormDto hostMemberFormDto, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){ // 오류가 발생하였을 경우, 클라이언트에게 오류 메시지 전송
             Map<String, Object> errors = new HashMap<>();
@@ -54,8 +54,8 @@ public class UserMemberController {
         }
 
         try {
-            User user = User.createUser(userMemberFormDto,passwordEncoder);
-            userMemberService.saveMember(user);
+            Host host = Host.createHost(hostMemberFormDto,passwordEncoder);
+            hostMemberService.saveMember(host);
             // 수정 성공시, 클라이언트에게 성공 메시지 전송
             Map<String, String> successResponse = new HashMap<>();
             successResponse.put("successMessage", "새로운 정보가 저장되었습니다.");
@@ -74,17 +74,16 @@ public class UserMemberController {
 
     }
 
-    @GetMapping("/api/userLogin")
+
+    @GetMapping("/api/hostLogin")
     @ResponseBody
     public String loginPage()
     {
         return "login";
     }
 
-
-
-    @PostMapping("/api/userLogin")
-    public ResponseEntity<?> loginUserPost(@RequestBody @Valid UserLoginDto userLoginDto,BindingResult bindingResult) {
+    @PostMapping("/api/hostLogin")
+    public ResponseEntity<?> loginUserPost(@RequestBody @Valid HostLoginDto hostLoginDto, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){ // 오류가 발생하였을 경우, 클라이언트에게 오류 메시지 전송
             Map<String, Object> errors = new HashMap<>();
@@ -96,15 +95,15 @@ public class UserMemberController {
         }
 
         try {
-            String userId = userLoginDto.getUserId();
-            User user = userMemberService.findOne(userId);
+            String hostNum = hostLoginDto.getHostNum();
+            Host host = hostMemberService.findOne(hostNum);
 
-            if (user == null) {
+            if (host == null) {
                 return ResponseEntity.badRequest().body("아이디가 없습니다.");
             }
 
             // 비밀번호를 검증한다
-            if (!passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
+            if (!passwordEncoder.matches(hostLoginDto.getPassword(), host.getPassword())) {
                 return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
             }
 
@@ -125,13 +124,6 @@ public class UserMemberController {
         }
     }
 
-    }
 
 
-
-
-
-
-
-
-
+}

@@ -35,11 +35,16 @@ const NewHostPage = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
 
+        console.log(newMember.hostNum);
+        console.log(newMember.password);
+        console.log(newMember.hostName);
+        console.log(newMember.phoneNum);
+
         try {
             const response = await axios.post("/api/hostNew", {
                 hostNum: newMember.hostNum,
                 password: newMember.password,
-                name: newMember.name,
+                hostName: newMember.hostName,
                 phoneNum: newMember.phoneNum,
                 // userRole:newMember.userRole
             });
@@ -49,8 +54,8 @@ const NewHostPage = () =>{
             }
             if (response.data.successMsg) {
                 console.log("'Form submitted successfully:', response.data.successMessage");
-                fetchData();
-                setNewMember({});
+                //fetchData();
+                //setNewMember({});
             }
         }catch (error){
             if(error.response){
@@ -75,16 +80,16 @@ const NewHostPage = () =>{
         <h1><b>회원가입</b></h1>
         <Form onSubmit={handleSubmit}>
             <span className="formName">사업자번호</span>
-            <input className="formInfo" type="text" placeholder="사업자번호를 입력해주세요" onChange={handleInputChange} value={newMember.hostNum} />
+            <input className="formInfo" type="text" placeholder="사업자번호를 입력해주세요" name="hostNum" onChange={handleInputChange} value={newMember.hostNum} />
        
             <span className="formName">비밀번호</span>
-            <input className="formInfo" type="text" placeholder="비밀번호를 입력해주세요" onChange={handleInputChange} value={newMember.password}/>
+            <input className="formInfo" type="password" placeholder="비밀번호를 입력해주세요" name="password" onChange={handleInputChange} value={newMember.password}/>
 
             <span className="formName">상호명</span>
-            <input className="formInfo" type="text" placeholder="상호명을 입력해주세요" onChange={handleInputChange} value={newMember.name}/>
+            <input className="formInfo" type="text" placeholder="상호명을 입력해주세요" name="hostName" onChange={handleInputChange} value={newMember.hostName}/>
 
             <span className="formName">전화번호</span>
-            <input className="formInfo" type="text" placeholder="전화번호를 입력해주세요" onChange={handleInputChange} value={newMember.phoneNum}/>
+            <input className="formInfo" type="text" placeholder="전화번호를 입력해주세요" name="phoneNum" onChange={handleInputChange} value={newMember.phoneNum}/>
         
         <div className="loginBtn">
           <button type="submit" >회원가입</button>

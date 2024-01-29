@@ -16,15 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-@Log4j2
-public class UserMemberService
- implements UserDetailsService
-{
+public class UserMemberService implements UserDetailsService {
 
     // UserMemberRepository => UserRepository로 통합
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+
 
     public User findOne(String userId) {
         return userRepository.findById(userId).orElseThrow(NullPointerException::new);
@@ -39,17 +36,7 @@ public class UserMemberService
         userRepository.save(user);
     }
 
-//    public void createUser(UserMemberFormDto userMemberFormDto){
-//        User user = new User();
-//        user.setUserId(userMemberFormDto.getUserId());
-//        user.setUserName(userMemberFormDto.getUserName());
-//        user.setPhoneNum(userMemberFormDto.getPhoneNum());
-//        String password = passwordEncoder.encode(userMemberFormDto.getPassword());
-//        user.setPassword(password);
-//        user.setPassword(userMemberFormDto.getPassword());
-//
-//        saveMember(user);
-//    }
+
     //가입된 회원인지 확인(유효성 검증)
     public void validateDuplicateUser(User user){
         User findUser = userRepository.findByUserId(user.getUserId());

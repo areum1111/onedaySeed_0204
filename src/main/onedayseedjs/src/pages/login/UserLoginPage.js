@@ -124,12 +124,7 @@ const UserLoginPage =()=>{
         }));
     };
 
-    // const handleInputChange = (e) =>{
-    //     setLogin(
-    //         ...iogin,
-    //         {[e.target.name]:e.target.value});
-    //     console.log(setLogin);
-    // }
+
 
     const handleSubmit = async (e) =>{
         // 새로고침 방지
