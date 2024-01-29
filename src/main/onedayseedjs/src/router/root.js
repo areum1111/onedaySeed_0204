@@ -11,13 +11,13 @@ const NewUser = lazy(() => import("../pages/login/NewUserPage"))
 const HostLogin = lazy(() => import("../pages/login/HostLoginPage"))
 const NewHost = lazy(() => import("../pages/login/NewHostPage"))
 const UserProfile = lazy(() => import("../pages/profile/UserProfile"))
-const Cart = lazy(() => import("../pages/cart/Cart"))
+const Cart = lazy(() => import("../pages/cart/Cart1"))
 
 const Order =lazy(() => import("../pages/order/Order"))
 const My = lazy(() => import("../pages/profile/MyPage"))
 
 
-const CartList = lazy(() => import("../pages/cart/CartList"))
+const CartList = lazy(() => import("../pages/cart/CartList1"))
 // const LessonManange = lazy(() => import("../pages/lesson/LessonManange"))
 const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
 const LessonList = lazy(() => import("../pages/lesson/LessonList"))
@@ -66,7 +66,7 @@ const root = createBrowserRouter([
     element: <Suspense fallback={Loading}><Order /></Suspense> 
   },
   {
-    path:"/cartlist",
+    path:"/cartList",
     element: <Suspense fallback={Loading}><CartList /></Suspense> 
   },
   // {

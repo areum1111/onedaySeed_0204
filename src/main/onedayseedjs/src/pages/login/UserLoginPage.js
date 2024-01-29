@@ -3,14 +3,23 @@ import BasicLaylout from "../../layouts/BasicLayout";
 import "./LoginForm.css"
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {login, loginPostAsync} from "../../slices/loginSlice";
+
 import {Form} from "react-bootstrap";
 import axios from "axios";
 import useCustomLogin from "../../hooks/useCustomLogin";
 
+
+const initState={
+    userId:"",
+    password:""
+
+}
 const UserLoginPage =()=>{
 
-    const [login,setLogin] = useState({});
+    const [login,setLogin] = useState({...initState});
+    // const { doLogin } = useCustomLogin();
+
+    const dispatch = useDispatch()
 
     const fetchData = async()=>{
         try{
@@ -37,9 +46,11 @@ const UserLoginPage =()=>{
         }));
     };
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
+
         // 새로고침 방지
         e.preventDefault();
+
         console.log(login.userId);
         console.log(login.password);
 
@@ -47,8 +58,9 @@ const UserLoginPage =()=>{
             const response = await axios.post("/api/userLogin", {
                 userId: login.userId,
                 password: login.password
-            })
 
+            });
+            // await doLogin(login);
             if (response.data.alertMessage) {
                 // 에러 또는 성공 메시지가 있으면 alert 창 띄우기
                 alert(response.data.alertMessage);
@@ -56,7 +68,10 @@ const UserLoginPage =()=>{
 
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
-                // localStorage.setItem("userId",this.loginDatas.userId)
+                // localStorage.setItem("isLoggedIn", JSON.stringify(response.data.isLoggedIn));
+
+                dispatch(login(login));
+
                 fetchData();
                 navigate("/");
 
@@ -110,7 +125,7 @@ const UserLoginPage =()=>{
       </BasicLaylout>
       </>
     )
-  
+
 }
 export default UserLoginPage;
 

@@ -8,11 +8,12 @@ const useCustomLogin = () => {
     const dispatch = useDispatch()
     const loginState = useSelector(state => state.loginSlice) //로그인,로그아웃 했을 경우의 상태
     const isLogin = loginState.userId ?true :false //로그인 여부
-    const doLogin = async (loginParam) => { //로그인 함수
-        const action = await dispatch(loginPostAsync(loginParam))
 
-        return action.payload
-    }
+    // const doLogin = async (loginParam) => { //로그인 함수
+    //     const action = await dispatch(loginPostAsync(loginParam))
+    //
+    //     return action.payload
+    // }
 
     const doLogout =() => { //로그아웃 함수
         dispatch(logout())
@@ -48,6 +49,6 @@ const useCustomLogin = () => {
         }
     }
 
-    return{loginState, isLogin, doLogin, doLogout, moveToPath, moveToLogin, moveToLoginReturn, exceptionHandle}
+    return{loginState, isLogin, doLogout, moveToPath, moveToLogin, moveToLoginReturn, exceptionHandle}
 }
 export default useCustomLogin;

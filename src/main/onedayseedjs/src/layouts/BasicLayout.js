@@ -1,20 +1,31 @@
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./BasicLayout.css"
 
-import {useSelector} from "react-redux";
-import useCustomLogin from "../hooks/useCustomLogin";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../slices/loginSlice";
 
 const BasicLayout = ({children}) => {
 
-    const {doLogout, moveToPath} =useCustomLogin()
+        const dispatch = useDispatch()
+       // const {doLogout, moveToPath} =useCustomLogin()
 
- const handleClickLogout =()=>{
-        doLogout()
-     alert("로그아웃되었습니다.")
-     moveToPath("/")
- }
+         const handleClickLogout =()=>{
+             //    doLogout()
+             // alert("로그아웃되었습니다.")
+             // moveToPath("/")
+             dispatch(logout())
+         }
 
-    const loginState = useSelector(state => state.loginSlice)
+    const navigate = useNavigate();
+
+    // const handleClickLogout =()=>{
+    //     localStorage.removeItem('isLoggedIn');
+    //     navigate("/");
+    //
+    // }
+
+    const loginState = useSelector((state) => state.loginSlice);
+
   return(
     <>
     
@@ -31,33 +42,33 @@ const BasicLayout = ({children}) => {
           <a href={'/about'} className="nav-link active" aria-current="page" >About Us</a>
         </li>
 
-          {/* 로그인한 사용자에게만 보이게
-          {loginState.id ?
-          <> */}
+          {/*로그인한 사용자에게만 보이게*/}
+          { loginState.id ?
+          <>
         <li className="nav-item">
           <a href={'/mypage'} className="nav-link">My Page</a>
         </li>
-      {/* </>
-        :<></>} */}
+       </>
+        :<></>}
 
-          {/* 로그인한 사용자에게만 보이게
+           {/*로그인한 사용자에게만 보이게*/}
           {loginState.id ?
-              <> */}
+              <>
                   <li className="nav-item">
-                      <a className="nav-link">Logout</a>
+                      <a className="nav-link" onClick={handleClickLogout}>Logout</a>
                   </li>
-              {/* </>
-              :<></>} */}
+               </>
+              :<></>}
 
 
 
         {/* 로그인 전 사용자에게 '로그인' 보이게 */}
           { ! loginState.id?
               <>
-        <li class="nav-item">
-          <a href={"/user/login"} className="nav-link disabled" aria-disabled="true" >Login</a>
+        <li className="nav-item">
+          <a href="/user/login" className="nav-link disabled" aria-disabled="true" >Login</a>
         </li>
-              </>: <></> }
+              </>: <></>}
       </ul>
       <form className="d-flex" role="search">
         <input className="form-control me-2 " id="search-input" type="search" placeholder="Search" aria-label="Search" />
