@@ -6,7 +6,7 @@ spring:
     generate-ddl: false
     hibernate:
       #      ddl-auto: update
-      ddl-auto: create
+      ddl-auto: update
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

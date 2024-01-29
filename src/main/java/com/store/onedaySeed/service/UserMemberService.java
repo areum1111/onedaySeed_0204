@@ -25,6 +25,13 @@ public class UserMemberService
 
     private final UserRepository userRepository;
 //    private final PasswordEncoder passwordEncoder;
+
+    public User findOne(String userId) {
+        return userRepository.findById(userId).orElseThrow(NullPointerException::new);
+        // id에 해당하는 user가 repository에 존재하지 않을 경우 NullPointerException 에러 핸들링
+    }
+
+
     public void saveMember(User user){
 
         validateDuplicateUser(user);

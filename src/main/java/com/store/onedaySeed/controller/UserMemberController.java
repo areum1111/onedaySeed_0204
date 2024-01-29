@@ -1,6 +1,7 @@
 package com.store.onedaySeed.controller;
 
 import com.store.onedaySeed.dto.UserDto;
+import com.store.onedaySeed.dto.UserLoginDto;
 import com.store.onedaySeed.dto.UserMemberFormDto;
 import com.store.onedaySeed.entity.User;
 import com.store.onedaySeed.service.UserMemberService;
@@ -73,6 +74,75 @@ public class UserMemberController {
 
     }
 
+    @GetMapping("/api/userLogin")
+    @ResponseBody
+    public String loginPage()
+    {
+        return "login";
+    }
+
+
+
+    @PostMapping("/api/userLogin")
+    public ResponseEntity<?> loginUserPost(@RequestBody @Valid UserLoginDto userLoginDto,BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){ // 오류가 발생하였을 경우, 클라이언트에게 오류 메시지 전송
+            Map<String, Object> errors = new HashMap<>();
+            // 에러 메시지와 함께 alert 메시지 추가
+            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("errors", bindingResult.getAllErrors());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        }
+
+        try {
+            String userId = userLoginDto.getUserId();
+            User user = userMemberService.findOne(userId);
+
+            if (user == null) {
+                return ResponseEntity.badRequest().body("아이디가 없습니다.");
+            }
+
+            // 비밀번호를 검증한다
+            if (!passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
+                return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
+            }
+
+            // 로그인 성공시, 클라이언트에게 성공 메시지 전송
+            Map<String, String> successResponse = new HashMap<>();
+            successResponse.put("successMessage", "로그인 성공");
+            successResponse.put("alertMessage", "로그인 성공");
+
+            return ResponseEntity.ok(successResponse);
+
+        } catch (Exception e) {
+            // 에러 메시지와 함께 alert 메시지 추가
+            Map<String, String> errors = new HashMap<>();
+            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("errorMessage", e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        }
+    }
+//    @PostMapping("/api/userLogin")
+//    public String loginUser(@RequestBody UserLoginDto userLoginDto) {
+//
+//        String userId = userLoginDto.getUserId();
+//        String password = userLoginDto.getPassword();
+//
+//        User user = userMemberService.findOne(userId);
+//
+//        if (user == null) {
+//
+//            return "아이디가 없습니다.";
+//        }
+//        if (!passwordEncoder.matches(password, user.getPassword())) {
+//            return "비밀번호가 일치하지 않습니다.";}
+//
+//        return "로그인성공";
+//    }
+
+
 
 
 //
@@ -98,16 +168,6 @@ public class UserMemberController {
 //          return productService.getList(pageRequestDTO);
 //
 //      }
-
-
-    @GetMapping("/api/userLogin")
-    @ResponseBody
-    public String loginPage()
-    {
-        return "login";
-    }
-
-
 
 
 
@@ -155,7 +215,7 @@ public class UserMemberController {
 //        }
 //    }
 
-}
+    }
 
 
 

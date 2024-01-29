@@ -115,10 +115,21 @@ const UserLoginPage =()=>{
     }, []);
 
 
-    const handleInputChange = (e) =>{
-        setLogin({[e.target.name]:e.target.value});
-        console.log(setLogin);
-    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setLogin((prevLogin) => ({
+            ...prevLogin,
+            [name]: value,
+        }));
+    };
+
+    // const handleInputChange = (e) =>{
+    //     setLogin(
+    //         ...iogin,
+    //         {[e.target.name]:e.target.value});
+    //     console.log(setLogin);
+    // }
 
     const handleSubmit = async (e) =>{
         // 새로고침 방지
@@ -131,25 +142,6 @@ const UserLoginPage =()=>{
                 userId: login.userId,
                 password: login.password
             })
-                .then((response) => {
-                    console.log(response);
-                    console.log("response.data.userId : ", response.data.userId);
-                    console.log("response.data.message : ", response.data.message);
-                    if (response.data.userId === undefined) {//id가 일치하지 않는 경우
-                        console.log("========", response.data.message)
-                        alert("아이디를 다시 확인해주세요")
-                    } else if (response.data.userId === null) {//id가 있지만 ,pw 가 다른 경우
-                        console.log("========", "비밀번호 재확인");
-                        alert("비밀번호를 확인해주세요");
-                    } else if (response.data.userId === login.userId) {//id,pw 둘다 일치
-                        console.log("==========", "로그인 성공");
-                        sessionStorage.setItem("userId", login.userId);//sessionStorage에 id를 "userId"라는 키값의 저장
-                        sessionStorage.setItem("name", response.data.name);
-                    }
-                    document.location.href = "/";
-
-                }).catch();
-
 
             if (response.data.alertMessage) {
                 // 에러 또는 성공 메시지가 있으면 alert 창 띄우기
@@ -159,7 +151,7 @@ const UserLoginPage =()=>{
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
                 fetchData();
-                setLogin({});
+                // setLogin({});
             }
         } catch (error) {
             if (error.response) {

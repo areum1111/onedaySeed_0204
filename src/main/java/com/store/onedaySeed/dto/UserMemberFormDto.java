@@ -1,19 +1,7 @@
 package com.store.onedaySeed.dto;
 
-import com.store.onedaySeed.constant.Role;
-import com.store.onedaySeed.entity.User;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Getter
@@ -28,7 +16,12 @@ public class UserMemberFormDto {
 
     private String password;
 
-//    private Role role;
+//    public void UserMemberFormLogin(String userId, String password) {
+//        this.userId = userId;
+//        this.password = password;
+//    }
+
+    //    private Role role;
 
 //    public UserMemberFormDto(String userId, String userName, String userPhoneNum, String userPassword) {
 //        this.userId = userId;
