@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Log4j2
 public class UserMemberService{
-
-    // UserMemberRepository => UserRepository로 통합
     
     private final UserRepository userRepository;
     public User saveMember(User user){

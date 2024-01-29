@@ -1,4 +1,5 @@
 import { Suspense,lazy} from "react";
+import CartList from "../pages/cart/CartList1";
 const { createBrowserRouter} = require("react-router-dom");
 
 
@@ -11,8 +12,10 @@ const Order = lazy(() => import ("../pages/order/OrderPage"))
 const HostLogin = lazy(() => import("../pages/login/HostLoginPage"))
 const NewHost = lazy(() => import("../pages/login/NewHostPage"))
 const UserProfile = lazy(() => import("../pages/profile/UserProfile"))
+const HostProfile = lazy(() => import("../pages/profile/HostProfile"))
 const Cart = lazy(() => import("../pages/cart/Cart"))
 const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
+const Cart1 = lazy(() => import("../pages/cart/Cart1"))
 
 const My = lazy(() => import("../pages/MyPage"))
 const root = createBrowserRouter([
@@ -55,6 +58,10 @@ const root = createBrowserRouter([
     element: <Suspense fallback={Loading}><UserProfile /></Suspense> 
   },
   {
+    path:"/host",
+    element: <Suspense fallback={Loading}><HostProfile /></Suspense> 
+  },
+  {
     path:"/cart",
     element: <Suspense fallback={Loading}><Cart /></Suspense> 
   },
@@ -62,7 +69,11 @@ const root = createBrowserRouter([
     path:"/lesson/new",
     element: <Suspense fallback={Loading}><LessonForm /></Suspense> 
   },
-
+  {
+    // css 테스트용
+    path:"/cart1",
+    element: <Suspense fallback={Loading}><Cart1 /></Suspense> 
+  },
 
 ])
 export default root;

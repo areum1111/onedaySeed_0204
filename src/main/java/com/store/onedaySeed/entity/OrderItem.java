@@ -34,24 +34,26 @@ import org.springframework.data.annotation.CreatedDate;
         private Long orderPrice;
 
     @CreatedDate
-    public static OrderItem createOrder(Lesson lesson, int count) throws OutOfLimitedException {
+    public static OrderItem createOrderItem(Lesson lesson, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setLesson(lesson);
         orderItem.setCount(count);
-        orderItem.setOrderPrice(lesson.getPrice());
+
+        long total = lesson.getPrice() * count;
+        orderItem.setOrderPrice(total);
 
         lesson.removeLimited(count);
         return orderItem;
     }
 
 
-    public long getTotalPrice(){
-        return orderPrice*count;
-    }
+//    public long getTotalPrice(){
+//        return orderPrice*count;
+//    }
 
-    public void cancel(){
-        this.getLesson().addLimited(count);
-    }
+//    public void cancel(){
+//        this.getLesson().addLimited(count);
+//    }
     }
 
 

@@ -19,6 +19,7 @@ import java.util.List;
 public class Orders extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "order_id")
     private Long orderId;
 
@@ -47,31 +48,30 @@ public class Orders extends BaseEntity {
         orderItem.setOrder(this);
     }
 
-    public static Orders createOrder(User user, List<OrderItem> orderItemList) {
-        Orders order = new Orders();
-        order.setUser(user);
+    public static Orders createOrder(User user, OrderItem orderItem) {
+        Orders orders = new Orders();
+        orders.setUser(user);
 
-        for (OrderItem orderItem : orderItemList) {
-            order.addOrderItem(orderItem);
-        }
-        order.setOrderStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalDateTime.now());
-        return order;
+        orders.addOrderItem(orderItem);
+
+        orders.setOrderStatus(OrderStatus.ORDER);
+        orders.setOrderDate(LocalDateTime.now());
+        return orders;
     }
 
-    public int getTotalPrice(){
-        int totalPrice =0;
-        for(OrderItem orderItem :orderItems){
-            totalPrice += (int) orderItem.getTotalPrice();
-        }
-        return totalPrice;
-    }
-
-    //주문 취소
-    public void cancelOrder(){
-        this.orderStatus = OrderStatus.CANCEL;
-        for(OrderItem orderItem: orderItems){
-            orderItem.cancel();
-        }
-    }
+//    public int getTotalPrice(){
+//        int totalPrice =0;
+//        for(OrderItem orderItem :orderItems){
+//            totalPrice += (int) orderItem.getTotalPrice();
+//        }
+//        return totalPrice;
+//    }
+//
+//    //주문 취소
+//    public void cancelOrder(){
+//        this.orderStatus = OrderStatus.CANCEL;
+//        for(OrderItem orderItem: orderItems){
+//            orderItem.cancel();
+//        }
+//    }
 }

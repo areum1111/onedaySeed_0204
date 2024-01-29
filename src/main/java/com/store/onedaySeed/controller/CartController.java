@@ -2,15 +2,13 @@ package com.store.onedaySeed.controller;
 
 import com.store.onedaySeed.dto.CartDto;
 import com.store.onedaySeed.service.CartService;
-import jakarta.validation.Valid;
+import exception.OutOfLimitedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +20,10 @@ public class CartController {
     private final CartService cartService;
     
     // 장바구니 추가 // 남아있는 수량 체크(그 이상으로 담으면 불가 + alert)
+    // 로그인 확인
     
     // 장바구니 조회 (로그인 정보가 없어서 일단 Principal 제외)
+    // 썸네일 이미지 가져오는 것도 필요
     @GetMapping("/api/cart")
     public List<CartDto> cartList() {
         List<CartDto> cartDtoList = cartService.getCartList("hong");
@@ -61,12 +61,23 @@ public class CartController {
         }
     }
     
-    // 장바구니 삭제 (로그인 정보가 없어서 일단 Principal 제외)
+    // 장바구니 삭제
     @DeleteMapping("/api/cart/{cartItemId}")
     public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId") Long cartItemId) {
         cartService.deleteCartItem(cartItemId);
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
     }
-    
-    // 주문하기(결제)
+
+    // 주문하기 (로그인 정보가 없어서 일단 Principal 제외)
+    @PostMapping("/api/cart/order/{cartItemId}")
+    public @ResponseBody ResponseEntity orderCartItem(@PathVariable("cartItemId") Long cartItemId) {
+        try {
+            Long orderId = cartService.orderCartItem(cartItemId, "hong");
+            return new ResponseEntity<>(orderId, HttpStatus.OK);
+        } catch (OutOfLimitedException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("주문 처리 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -39,6 +39,7 @@ public class UserService {
             user.setPassword(userDto.getPassword());
 
             userRepository.save(user);
+
         } else {
             throw new EntityNotFoundException("User not found");
         }

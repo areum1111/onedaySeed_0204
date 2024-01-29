@@ -78,14 +78,24 @@ function CartList({ item, onItemDelete }) {
       };
 
       // 결제
-      const handleOrder = () => {
-            if(window.confirm("결제하려는 수업과 인원이 '" + item.lessonName + " " + personCount + "명' 맞습니까?")){
-                alert("결제되었습니다.");
-                window.location.reload();
-            }else{
-                window.location.reload();
+      const handleOrder = async () => {
+        if (window.confirm(`결제하려는 수업과 인원이 '${item.lessonName} ${item.count}명' 맞습니까?`)) {
+          try {
+            await axios.post(`/api/cart/order/${item.cartItemId}`);
+            alert("결제되었습니다.");
+            window.location.reload();
+          } catch (error) {
+            if (error.response) {
+              console.error(error.response.data);
+            } else {
+              console.error("Error during the request");
             }
-      }
+            alert("결제 중 오류가 발생했습니다.");
+          }
+        } else {
+          window.location.reload();
+        }
+      };
 
     return (
         <div className='all'>

@@ -1,19 +1,27 @@
 package com.store.onedaySeed.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import com.store.onedaySeed.constant.OrderStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class OrderDto {
+    private Long orderId; // Orders
 
-    @Min(value = 1, message = " 최소 인원은 1명 이상입니다.")
-    @Max(value = 20, message = " 최대 인원은 20명 이하입니다." )
-    private int count;
+    private String lessonName; // OrderItem - Lesson
 
-    @NotNull(message="클래스 아이디는 필수 입력입니다.")
-    private Long lessonId;
+    private String lessonSchedule; // Lesson
+
+    private int count; // OrderItem
+
+    private Long orderPrice; // OrderItem
+
+    private OrderStatus orderStatus; // Orders
+
 }

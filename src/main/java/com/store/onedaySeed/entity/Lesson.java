@@ -45,13 +45,18 @@ public class Lesson extends BaseEntity{
     private LessonStatus lessonStatus;
 
     //재고 감소
-    public void removeLimited(int lessonLimited) throws OutOfLimitedException {
+    public void removeLimited(int lessonLimited) {
         int restLimited = this.lessonLimited-lessonLimited;
         if(restLimited < 0){
             throw new OutOfLimitedException(this.lessonName+" 클래스의 자리가 부족합니다. 현재 남은 인원수 : "+ this.lessonLimited);
 
-        }this.lessonLimited=restLimited;
-
+        }
+        this.lessonLimited=restLimited;
+        
+        // 재고 수량 0이면 품절 상태
+        if (restLimited == 0) {
+            this.lessonStatus = LessonStatus.SOLD_OUT;
+        }
     }
 
     //주문시 재고 부족 하면 장바구니에 담기지 않게 하기
@@ -63,17 +68,9 @@ public class Lesson extends BaseEntity{
     }
 
 
+    // 주문 취소시 상품 재고 증가
     public void addLimited(int lessonLimited){
-
         this.lessonLimited += lessonLimited;
     }
-
-    
-
-
-
-
-
-
 
 }
