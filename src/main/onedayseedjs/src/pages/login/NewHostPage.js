@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import "./LoginForm.css"
 import axios from "axios";
 import Form from "react-bootstrap/Form";
+import {useNavigate} from "react-router-dom";
 
 const NewHostPage = () =>{
 
@@ -22,9 +23,15 @@ const NewHostPage = () =>{
         fetchData();
     }, []);
 
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+
+
+
+
         setNewMember((prevNewMember) => ({
             ...prevNewMember,
             [name]: value,
@@ -34,6 +41,38 @@ const NewHostPage = () =>{
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // 기본 폼 제출 방지
+
+        if (newMember.hostNum == null) {
+            alert("사업자번호를 입력해주세요.");
+            return;
+        }
+        if (!/^\d{10}$/.test(newMember.hostNum)) {
+            alert("사업자번호는 숫자 10자리로 입력해주세요.");
+            return;
+        }
+        if (newMember.password == null) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
+        if (newMember.password.length < 6 || newMember.password.length > 12) {
+            alert("비밀번호는 6자리 이상 12자리 이하로 입력해주세요.");
+            return;
+        }
+
+        if (newMember.hostName == null) {
+            alert("상호명을 입력해주세요.");
+            return;
+        }
+        if (newMember.phoneNum == null) {
+            alert("전화번호를 입력해주세요.");
+            return;
+        }
+        if (!/^\d+$/.test(newMember.phoneNum)) {
+            alert("전화번호는 숫자만 입력해주세요.");
+            return;
+        }
+
+
 
         console.log(newMember.hostNum);
         console.log(newMember.password);
@@ -46,27 +85,30 @@ const NewHostPage = () =>{
                 password: newMember.password,
                 hostName: newMember.hostName,
                 phoneNum: newMember.phoneNum,
-                // userRole:newMember.userRole
             });
 
             if (response.data.alertMessage) {
                 alert(response.data.alertMessage);
             }
-            if (response.data.successMsg) {
-                console.log("'Form submitted successfully:', response.data.successMessage");
-                //fetchData();
-                //setNewMember({});
+            if (response.data.successMessage) {
+                console.log('Form submitted successfully:', response.data.successMessage);
+                fetchData();
+
+                navigate("/host/login");
             }
         }catch (error){
             if(error.response){
                 // 서버 응답이 에러인 경우
                 console.error('Error submitting form:', error.response.data);
+                console.log("에러");
             }else if (error.request) {
                 // 요청이 전혀 이루어지지 않은 경우
                 console.error('Request error:', error.request);
+                console.log("에러");
             } else {
                 // 기타 에러
                 console.error('Unexpected error:', error.message);
+                console.log("에러");
             }
         }
     };

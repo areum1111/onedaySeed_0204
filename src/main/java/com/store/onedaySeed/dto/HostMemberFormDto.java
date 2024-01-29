@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter

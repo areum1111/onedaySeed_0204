@@ -58,8 +58,8 @@ public class UserMemberController {
             userMemberService.saveMember(user);
             // 수정 성공시, 클라이언트에게 성공 메시지 전송
             Map<String, String> successResponse = new HashMap<>();
-            successResponse.put("successMessage", "새로운 정보가 저장되었습니다.");
-            successResponse.put("alertMessage", "새로운 정보가 저장되었습니다.");
+            successResponse.put("successMessage", "회원가입 완료");
+            successResponse.put("alertMessage", "회원가입 완료");
 
             return ResponseEntity.ok(successResponse);
 

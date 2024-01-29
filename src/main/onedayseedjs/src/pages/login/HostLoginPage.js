@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import BasicLaylout from "../../layouts/BasicLayout";
 import "./LoginForm.css"
 import {useEffect, useState} from "react";
@@ -21,6 +21,8 @@ const HostLoginPage = () => {
         fetchData()
     }, []);
 
+
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -49,7 +51,7 @@ const HostLoginPage = () => {
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
                 fetchData();
-                setLogin({});
+                navigate("/");
             }
         } catch (error) {
             if (error.response) {
@@ -86,14 +88,12 @@ const HostLoginPage = () => {
             </div>
                 </Form>
 
-            <Link to={"/login"} className="another-login">게스트로 로그인하기</Link>
-
-
+            <Link to={"/user/login"} className="another-login">게스트로 로그인하기</Link>
 
           <span className="choiceNewmember">아직 회원이 아니신가요?</span>
           <div className="newmember">
-              <button className="another-btn"><Link to={"/newHost"}>호스트 회원가입</Link></button>
-              <button className="another-btn"><Link to={"/newUser"}>게스트 회원가입</Link></button>
+              <button className="another-btn"><Link to={"/host/new"}>호스트 회원가입</Link></button>
+              <button className="another-btn"><Link to={"/user/new"}>게스트 회원가입</Link></button>
           </div>
 
           </div>
