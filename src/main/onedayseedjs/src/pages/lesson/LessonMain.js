@@ -49,9 +49,9 @@ function LessonMain() {
           </div>
           {lessons && lessons.length > 0 ? (
             lessons.map((lesson) => (
-              <div key={lesson.id}>
+              <div key={lesson.lessonId}>
                 <img src="#" width="200px" height="200px" alt="fox" />
-                <Link to={`/lesson/${lesson.id}`}>
+                <Link to={`/lesson/${lesson.lessonId}`}>
                   {lesson.lessonName} / {lesson.price} 원/ {lesson.lessonSchedule}
                 </Link>
               </div>

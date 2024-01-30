@@ -32,6 +32,9 @@ public class LessonService {
         lessonRepository.save(lesson);
         System.out.println(lesson.getLessonName());
         System.out.println(lesson.getLessonCategory());
+        System.out.println(lesson.getLessonId());
+        System.out.println(lesson.getLessonSchedule());
+        System.out.println(lessonDto.getLessonId());
         return lesson.getLessonId();
     }
     public List<LessonDto> getAllLesson() {
@@ -40,6 +43,9 @@ public class LessonService {
 
         for (Lesson lesson : lessons) {
             lessonDtos.add(convertToDto(lesson));
+        }
+        for(int i= 0; i<lessonDtos.size(); i++){
+            System.out.println(lessonDtos);
         }
 
         return lessonDtos;
