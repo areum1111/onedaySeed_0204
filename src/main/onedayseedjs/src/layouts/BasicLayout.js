@@ -5,26 +5,33 @@ import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../slices/loginSlice";
 
 const BasicLayout = ({children}) => {
+        const navigate = useNavigate();
 
         const dispatch = useDispatch()
+
+        const loginState = useSelector((state)=>state.loginSlice)
        // const {doLogout, moveToPath} =useCustomLogin()
 
          const handleClickLogout =()=>{
              //    doLogout()
              // alert("로그아웃되었습니다.")
              // moveToPath("/")
+             // localStorage.removeItem('isLoggedIn');
              dispatch(logout())
          }
+    // const handleClickLogin =()=>{
+    //     //    doLogout()
+    //     // alert("로그아웃되었습니다.")
+    //     // moveToPath("/")
+    //     // dispatch(login())
+    //     }
 
-    const navigate = useNavigate();
 
     // const handleClickLogout =()=>{
     //     localStorage.removeItem('isLoggedIn');
     //     navigate("/");
     //
     // }
-
-    const loginState = useSelector((state) => state.loginSlice);
 
   return(
     <>
@@ -55,7 +62,7 @@ const BasicLayout = ({children}) => {
           {loginState.id ?
               <>
                   <li className="nav-item">
-                      <a className="nav-link" onClick={handleClickLogout}>Logout</a>
+                      <a  className="nav-link active" aria-current="page" onClick={handleClickLogout}>Logout</a>
                   </li>
                </>
               :<></>}
@@ -66,7 +73,7 @@ const BasicLayout = ({children}) => {
           { ! loginState.id?
               <>
         <li className="nav-item">
-          <a href="/user/login" className="nav-link disabled" aria-disabled="true" >Login</a>
+          <a href="/user/login" className="nav-link active" aria-current="page" >Login</a>
         </li>
               </>: <></>}
       </ul>

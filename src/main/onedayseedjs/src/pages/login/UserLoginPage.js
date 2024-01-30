@@ -3,7 +3,7 @@ import BasicLaylout from "../../layouts/BasicLayout";
 import "./LoginForm.css"
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-
+import {login as loginAction} from "../../slices/loginSlice";
 import {Form} from "react-bootstrap";
 import axios from "axios";
 import useCustomLogin from "../../hooks/useCustomLogin";
@@ -12,7 +12,6 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 const initState={
     userId:"",
     password:""
-
 }
 const UserLoginPage =()=>{
 
@@ -70,8 +69,7 @@ const UserLoginPage =()=>{
                 console.log('Form submitted successfully:', response.data.successMessage);
                 // localStorage.setItem("isLoggedIn", JSON.stringify(response.data.isLoggedIn));
 
-                dispatch(login(login));
-
+                dispatch(loginAction(response.data.isLoggedIn));
                 fetchData();
                 navigate("/");
 
