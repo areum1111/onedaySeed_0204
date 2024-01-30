@@ -35,7 +35,7 @@ function LessonForm() {
     axios.post('/host/lesson/new', dataToSend
     )
       .then(response => {
-        console.log('서버로부터의 응답:', response.data);
+        console.log('서버로부터의 응답:', response.data.lessonName);
       })
       .catch(error => {
         console.error('에러 발생:', error);

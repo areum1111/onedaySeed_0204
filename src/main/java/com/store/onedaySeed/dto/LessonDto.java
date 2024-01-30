@@ -1,17 +1,16 @@
 package com.store.onedaySeed.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.store.onedaySeed.constant.LessonStatus;
 import com.store.onedaySeed.entity.Lesson;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class LessonDto {
 
     private Long lessonId;
@@ -34,9 +33,7 @@ public class LessonDto {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public LessonDto() {
 
-    }
 
     public LessonDto(Lesson lesson) {
         this.lessonName = lesson.getLessonName();
@@ -45,6 +42,21 @@ public class LessonDto {
         this.lessonSchedule = lesson.getLessonSchedule();
         this.lessonLimited = lesson.getLessonLimited();
         this.lessonStatus = lesson.getLessonStatus();
+    }
+
+//    public LessonDto(Long lessonId, String lessonName, Long price, String lessonSchedule) {
+//        this.lessonId = lessonId;
+//        this.lessonName = lessonName;
+//        this.price = price;
+//        this.lessonSchedule = lessonSchedule;
+//    }
+
+    @QueryProjection
+    public LessonDto(Long lessonId, String lessonName, Long price, String lessonSchedule) {
+        this.lessonId = lessonId;
+        this.lessonName = lessonName;
+        this.price = price;
+        this.lessonSchedule = lessonSchedule;
     }
 
     public Lesson createLesson(){

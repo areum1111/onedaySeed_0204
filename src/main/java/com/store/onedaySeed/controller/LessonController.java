@@ -6,35 +6,60 @@ import com.store.onedaySeed.dto.LessonDto;
 import com.store.onedaySeed.entity.Lesson;
 import com.store.onedaySeed.service.LessonService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/host")
 @RequiredArgsConstructor
+@Log4j2
 public class LessonController {
 
     private final LessonService lessonService;
 
-    
-    @PostMapping(value = "lesson/new")
-    public ResponseEntity<Lesson> createLesson(@RequestBody LessonDto lessonDto) {
-        Lesson lesson = new Lesson(lessonDto);
 
-        return ResponseEntity.ok(lessonService.saveLesson(lesson));
+    //호스트로 로그인 시 등록한 클래스들 전부 보이는 페이지
+    @GetMapping(value = "/lesson/main")
+    public List<LessonDto> getAllLessons(){
+        List<LessonDto> lessons = lessonService.getAllLesson();
+
+        return lessons;
     }
 
-//    @GetMapping(value = "/lesson/detail)
-//    public Long findOneLesson(@RequestPart("lessonId") Long lessonId){
+//    @DeleteMapping(value = "/lesson/{lessonId}")
+//    public @ResponseBody ResponseEntity deleteLesson(@PathVariable("lessonId") Long lessonId, Model model){
 //
 //    }
+
+    //클래스 등록페이지(메인 페이지에서 등록하기 누르면 여기로 이동)
+    @PostMapping(value = "/lesson/new")
+    public ResponseEntity<Long> createLesson(@RequestBody LessonDto lessonDto) {
+
+        return ResponseEntity.ok(lessonService.saveLesson(lessonDto));
+    }
+
+    @GetMapping(value = "/lesson/list")
+    public List<Lesson> getAllSellLesson(){
+        return lessonService.getAllLessonss();
+    }
+
+    //클래스 구매 상세 페이지
+    @GetMapping(value = "/lesson/detail/{lessonId}")
+    public Lesson lessonDetail (@PathVariable("lessonId") Long lessonId){
+        return lessonService.getLessonById(lessonId);
+    }
 
 
 

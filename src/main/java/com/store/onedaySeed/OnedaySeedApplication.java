@@ -15,7 +15,8 @@ public class OnedaySeedApplication {
 
 	@GetMapping(value=
 			{"/", "/about", "/user", "/user/login", "/host/login","/newUser", "/newHost", "/myPage",
-					"/cart", "/lesson/new"})
+					"/cart", "/lesson/new", "/lesson/main", "/lesson/detail/{lessonId}", "/lesson/detail",
+			 "/lesson/list"})
 	public String forward() {
 		return "forward:/index.html";
 	}

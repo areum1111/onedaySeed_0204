@@ -5,6 +5,7 @@ import com.store.onedaySeed.dto.LessonDto;
 import exception.OutOfLimitedException;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class Lesson extends BaseEntity {
 
     @Id
@@ -55,6 +57,8 @@ public class Lesson extends BaseEntity {
         this.lessonLimited = lessonDto.getLessonLimited();
         this.lessonStatus = lessonDto.getLessonStatus();
     }
+
+
 
 //    @Column(nullable = false, name = "lesson_rep_img")
 //    private String lessonRepImg;
