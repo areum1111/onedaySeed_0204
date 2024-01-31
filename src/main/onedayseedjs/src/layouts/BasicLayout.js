@@ -1,67 +1,123 @@
-import { Link } from "react-router-dom";
-import "./basicLayout.css"
-import BasicMenu from "../components/menus/BasicMenu.js";
-import {useSelector} from "react-redux";
-import useCustomLogin from "../hooks/useCustomLogin";
+import {Link, useNavigate} from "react-router-dom";
+import "./BasicLayout.css"
+
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../slices/loginSlice";
 
 const BasicLayout = ({children}) => {
 
-    const {doLogout, moveToPath} =useCustomLogin()
+        const navigate = useNavigate();
+        const dispatch = useDispatch()
 
- const handleClickLogout =()=>{
-        doLogout()
-     alert("로그아웃되었습니다.")
-     moveToPath("/")
- }
+        const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+        const userId = useSelector((state) => state.login.userId);
 
-    const loginState = useSelector(state => state.loginSlice)
-  return(
+        const isHostLoggedIn = useSelector((state) => state.login.isHostLoggedIn);
+        const hostNum = useSelector((state) => state.login.hostNum);
+
+        const handleClickLogout =()=>{
+             localStorage.removeItem("isLoggedIn");
+             dispatch(logout());
+             navigate("/");
+         }
+
+    const handleClickHostLogout =()=>{
+        localStorage.removeItem("isHostLoggedIn");
+        dispatch(logout());
+        navigate("/");
+    }
+
+    return(
     <>
     
     <header>
     <nav className="navbar navbar-expand-lg" id="nav" >
     <div className="container-fluid" id="nav-form">
-      <Link to = {'/'} className="navbar-brand" id='logo'>OnedaySeed</Link>
+      <a href={'/'} className="navbar-brand" id='logo'>OnedaySeed</a>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       < ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link to={'/about'} className="nav-link active" aria-current="page" >About Us</Link>
+          <a href={'/about'} className="nav-link active" aria-current="page" >About Us</a>
         </li>
 
+
+
+          {/*   !가 붙어있어야 로그인전 화면에 노출 ! */}
+
+
+
+          {/* User */}
+
           {/*로그인한 사용자에게만 보이게*/}
-          {loginState.id ?
+          { isLoggedIn ?
           <>
         <li className="nav-item">
-          <Link to={'/mypage'} className="nav-link">My Page</Link>
+          <a href={'/myPage'} className="nav-link">My Page</a>
         </li>
-      </>
+       </>
         :<></>}
 
           {/*로그인한 사용자에게만 보이게*/}
-          {loginState.id ?
+          { isLoggedIn ?
               <>
                   <li className="nav-item">
-                      <a onClick={handleClickLogout} className="nav-link">Logout</a>
+                      <a href="/" className="nav-link" onClick={handleClickLogout}>Logout</a>
+                  </li>
+               </>
+              :<></>}
+          {/*로그인한 사용자에게만 보이게*/}
+          { isLoggedIn ?
+              <>
+          <li className="nav-item">
+              <a className="nav-link active" aria-current="page" >{userId}님, 반가워요!</a>
+          </li>
+              </>
+              :<></>}
+
+        {/* 로그인 전 사용자에게 '로그인' 보이게 */}
+          {!( isLoggedIn  ||  isHostLoggedIn )?
+              <>
+        <li className="nav-item">
+          <a href="/user/login" className="nav-link" >Login</a>
+        </li>
+              </>: <></>}
+
+
+          {/* Host */}
+
+          {/*로그인한 호스트에게만 보이게*/}
+          { isHostLoggedIn ?
+              <>
+                  <li className="nav-item">
+                      <a href={'/'} className="nav-link">My Class</a> 
+                  {/*    레슨 파일보고 페이지 맞게 연결*/}
+                  </li>
+              </>
+              :<></>}
+
+          {/*로그인한 호스트에게만 보이게*/}
+          { isHostLoggedIn ?
+              <>
+                  <li className="nav-item">
+                      <a href="/" className="nav-link" onClick={handleClickHostLogout}>Logout</a>
+                  </li>
+              </>
+              :<></>}
+          {/*로그인한 호스트에게만 보이게*/}
+          { isHostLoggedIn ?
+              <>
+                  <li className="nav-item">
+                      <a className="nav-link active" aria-current="page" >{hostNum}님, 반가워요!</a>
                   </li>
               </>
               :<></>}
 
 
-
-        {/* 로그인 전 사용자에게 '로그인' 보이게 */}
-          { ! loginState.id?
-              <>
-        <li className="nav-item">
-          <Link to={"/user/login"} className="nav-link disabled" aria-disabled="true" >Login</Link>
-        </li>
-              </>: <></> }
-
-          
       </ul>
-      <form class="d-flex" role="search">
+      <form className="d-flex" role="search">
         <input className="form-control me-2 " id="search-input" type="search" placeholder="Search" aria-label="Search" />
         <button className="btn btn-outline-success " id='search-btn' type="submit">Search</button>
       </form>

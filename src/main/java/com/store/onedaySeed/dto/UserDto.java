@@ -23,9 +23,9 @@ public class UserDto {
     private String password;
 
     public UserDto(User user) {
-    this.userId = user.getUserId();
-    this.userName = user.getUserName();
-    this.phoneNum = user.getPhoneNum();
-    this.password = user.getPassword();
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
+        this.phoneNum = user.getPhoneNum();
+        this.password = user.getPassword();
     }
 }

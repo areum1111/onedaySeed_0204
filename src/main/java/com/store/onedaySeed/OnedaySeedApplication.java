@@ -13,9 +13,10 @@ public class OnedaySeedApplication {
 		SpringApplication.run(OnedaySeedApplication.class, args);
 	}
 
+	// cart1은 css용
 	@GetMapping(value=
-			{"/", "/about", "/user", "/host", "/user/login", "/host/login","/newUser", "/newHost", "/myPage",
-					"/cart", "/lesson/new", "/order"})
+			{"/", "/about", "/user/login", "/user/new", "/host/login", "/host/new", "/myPage", "/user", "/host", "/cart",
+					"/order", "/lesson/main", "/lesson/list", "/lesson/form", "/lesson/detail", "/cart1"})
 	public String forward() {
 		return "forward:/index.html";
 	}

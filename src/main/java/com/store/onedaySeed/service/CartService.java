@@ -40,7 +40,7 @@ public class CartService {
         cartList = cartItemRepository.findCartList(cart.getCartId());
         return cartList;
     }
-    
+
     // 장바구니 수정
     @Transactional
     public void updateCart(CartDto cartDto) throws EntityNotFoundException {
@@ -67,7 +67,7 @@ public class CartService {
             throw new RuntimeException("Entity not found for deletion.", e);
         }
     }
-    
+
     // 주문하기
     @Transactional
     public Long orderCartItem(Long cartItemId, String userId) {

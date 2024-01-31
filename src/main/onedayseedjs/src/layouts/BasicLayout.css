@@ -24,12 +24,6 @@
 
 
 
-
-
-
-
-
-
 .footer-body{
   display: flex;
   text-align: center;
@@ -38,8 +32,8 @@
   height: 120px;
   margin: 20px auto;
   clear: both;
+  font-size: 20px;
 } 
 .our-info, .not-host{
-    font-size: 10px;
-    margin-bottom: 10px;
+    font-size: 14px;
   }

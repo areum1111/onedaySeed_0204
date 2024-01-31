@@ -9,29 +9,29 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
 //주문상품
-    @Entity
-    @Table(name="order_item")
-    @Getter
-    @Setter
-    @ToString
-    public class OrderItem extends BaseEntity{
+@Entity
+@Table(name="order_item")
+@Getter
+@Setter
+@ToString
+public class OrderItem extends BaseEntity{
 
-        @Id
-        @Column(name = "order_item_id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long orderItemId;
+    @Id
+    @Column(name = "order_item_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long orderItemId;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name="order_id")
-        private Orders order;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="order_id")
+    private Orders order;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name="lesson_id")
-        private Lesson lesson;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lesson_id")
+    private Lesson lesson;
 
-        private int count;
+    private int count;
 
-        private Long orderPrice;
+    private Long orderPrice;
 
     @CreatedDate
     public static OrderItem createOrderItem(Lesson lesson, int count) {
@@ -54,6 +54,6 @@ import org.springframework.data.annotation.CreatedDate;
 //    public void cancel(){
 //        this.getLesson().addLimited(count);
 //    }
-    }
+}
 
 

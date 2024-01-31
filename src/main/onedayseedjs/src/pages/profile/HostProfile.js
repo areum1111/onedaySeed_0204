@@ -110,7 +110,7 @@ function HostProfile() {
             />
           </Form.Group>
           <Button id="modify" variant="primary" type="submit">
-            수정
+            수정완료
           </Button>
         </Form>
         </BasicLayout>

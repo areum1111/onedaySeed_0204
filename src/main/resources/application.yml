@@ -20,4 +20,3 @@ spring:
     url: jdbc:mysql://localhost:3306/onedayseed?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: mysql
-

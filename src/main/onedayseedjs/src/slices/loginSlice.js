@@ -1,61 +1,29 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {loginPost} from "../api/memberApi";
-import {getCookie, removeCookie, setCookie} from "../util/cookieUtil";
+import { createSlice} from "@reduxjs/toolkit";
 
-const initState ={
-    userId:''
-}
-const loadMemberCookie = () =>{
-    const memberinfo =getCookie("user")
-
-    if(memberinfo && memberinfo.cookieName){
-    memberinfo.cookieName = decodeURIComponent(memberinfo.cookieName)
-    }
-    return memberinfo
-}
-
-export const loginPostAsync = createAsyncThunk('loginPostAsync',(param)=>{
-    return loginPost(param)
-})
-const loginSlice = createSlice({
-    name :'LoginSlice',
-    initialState : loadMemberCookie() || initState, //쿠키가 없다면 초깃값 사용
-    reducers : {
-        login:(state, action) =>{
-            console.log("login!")
-
-            //{userId,userPassword}
-            const data = action.payload
-            
-            //새로운 상태
-            return{userId: data.userId}
-        },
-        logout:(state,action)=>{
-            console.log("logout!")
-
-            removeCookie("member")
-            return {...initState}
-        }
+export const loginSlice = createSlice({
+    name: 'login',
+    initialState: {
+        isLoggedIn: false,
+        userId: null,
     },
-    extraReducers:(builder) =>{
-        builder.addCase(loginPostAsync.fulfilled,(state,action)=>{
-            console.log("fulfilled")
+    reducers: {
+        login: (state, action) => {
+            state.isLoggedIn = true;
+            state.userId = action.payload.userId;
+            // 로그인 성공 시 로컬 스토리지에 로그인 상태 저장
+            localStorage.setItem('isLoggedIn', true);
 
-            const payload = action.payload
-            
-            //정상적인 로그인 시점에만
-            if(!payload.error){
-                setCookie("user",JSON.stringify(payload),1)//1일 = RefreshToken
-            }
-            return payload
-        })
-            .addCase(loginPostAsync.pending, (state,action) =>{
-                console.log("pending")
-            })
-            .addCase(loginPostAsync.rejected,(state,action)=>{
-                console.log("rejected")
-            })
-    }
-})
-export const {login, logout} = loginSlice.actions
-export default loginSlice.reducer
+        },
+        logout: (state) => {
+            state.isLoggedIn = false;
+            state.userId = null;
+            // 로그아웃 시 로컬 스토리지에서 로그인 상태 제거
+            localStorage.removeItem('isLoggedIn');
+        },
+    },
+});
+
+export const { login, logout } = loginSlice.actions;
+
+export default loginSlice.reducer;
+

@@ -17,25 +17,32 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@Validated // @Valid 사용 위함
+@Validated
 public class UserController {
     private final UserService userService;
 
-    // 유저 상세 조회(프로필)
-//    @GetMapping("/api/user/{userId}")
-//    public UserDto userDetail(@PathVariable("userId") String userId) {
-//        User user = userService.findOne(userId);
-//        UserDto userDto = new UserDto(user);
-//
-//        return userDto;
-//    }
+    private String newUserId;
 
+
+    // 로그인 된 유저 아이디 받기
+    @PostMapping("/api/sendUserId")
+    public ResponseEntity<?> sendUserId(@RequestBody Map<String, String> requestBody) {
+        try {
+            String userId = requestBody.get("userId");
+            newUserId = userId;
+            System.out.println("받은 사용자 ID: " + userId);
+            return ResponseEntity.ok("사용자 ID 전송 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // 프로필 조회
     @GetMapping("/api/user")
     public UserDto userDetail() {
-        User user = userService.findOne("hong");
-        UserDto userDto = new UserDto(user);
+        User user = userService.findOne(newUserId);
 
-        return userDto;
+        return new UserDto(user);
     }
 
     // 유저 정보 수정 // @Valid 의존성 추가하기

@@ -18,10 +18,10 @@ import java.util.Map;
 public class CartController {
 
     private final CartService cartService;
-    
+
     // 장바구니 추가 // 남아있는 수량 체크(그 이상으로 담으면 불가 + alert)
     // 로그인 확인
-    
+
     // 장바구니 조회 (로그인 정보가 없어서 일단 Principal 제외)
     // 썸네일 이미지 가져오는 것도 필요
     @GetMapping("/api/cart")
@@ -29,7 +29,7 @@ public class CartController {
         List<CartDto> cartDtoList = cartService.getCartList("hong");
         return cartDtoList;
     }
-    
+
     // 장바구니 수정(count 업데이트)
     @PostMapping("/api/cart")
     public ResponseEntity<?> cartUpdate(@RequestBody CartDto cartDto, BindingResult bindingResult) {
@@ -60,7 +60,7 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
     }
-    
+
     // 장바구니 삭제
     @DeleteMapping("/api/cart/{cartItemId}")
     public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId") Long cartItemId) {
@@ -80,4 +80,13 @@ public class CartController {
             return new ResponseEntity<>("주문 처리 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//    @PostMapping("/api/cart/order/{cartItemId}")
+//    public @ResponseBody ResponseEntity orderCartItem(@PathVariable("cartItemId") Long cartItemId) {
+//        try {
+//            Long orderId = cartService.orderCartItem(cartItemId, "hong");
+//            return new ResponseEntity<>(orderId, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("주문 처리 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }

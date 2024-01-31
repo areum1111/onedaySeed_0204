@@ -5,20 +5,17 @@ import lombok.Setter;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
 public class HostMemberFormDto {
 
-    @NotEmpty(message = "사업자번호를 입력해주세요")
     private String hostNum;
 
-    @NotEmpty(message = "상호명을 입력해주세요")
     private String hostName;
 
-    @NotEmpty(message = "전화번호를 입력해주세요")
-    private Long hostPhoneNum;
+    private String phoneNum;
 
-    @NotEmpty(message = "비밀번호를 입력해주세요")
-    private String hostPassword;
+    private String password;
 }

@@ -41,15 +41,16 @@ public class User extends BaseEntity{
         this.password = userDto.getPassword();
     }
 
-    public static User createUser(UserMemberFormDto userMemberFormDto, PasswordEncoder passwordEncoder){
+    public static User createUser(UserMemberFormDto userMemberFormDto,PasswordEncoder passwordEncoder){
 
         User user = new User();
 
         user.setUserId(userMemberFormDto.getUserId());
         user.setUserName(userMemberFormDto.getUserName());
-        user.setPhoneNum(userMemberFormDto.getUserPhoneNum());
-        String password = passwordEncoder.encode(userMemberFormDto.getUserPassword());
+        user.setPhoneNum(userMemberFormDto.getPhoneNum());
+        String password = passwordEncoder.encode(userMemberFormDto.getPassword());
         user.setPassword(password);
+//        user.setPassword(userMemberFormDto.getPassword());
         user.setRole(Role.USER);
 
         return user;

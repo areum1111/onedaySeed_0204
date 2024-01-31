@@ -35,15 +35,15 @@
 //
 //        log.info("check uri....."+path);
 //
-////        // api/user/의 경로 호출은 체크 하지 않는다.
-////        if(path.startsWith("/api/user/")){
-////            return true;
-////        }
-////
-////        // 이미지 조회 경로는 체크 하지 않는다.
-////        if(path.startsWith("/api/lessons/view/")){
-////            return true;
-////        }
+//        // api/user/의 경로 호출은 체크 하지 않는다.
+//        if(path.startsWith("/api/user/")){
+//            return true;
+//        }
+//
+//        // 이미지 조회 경로는 체크 하지 않는다.
+//        if(path.startsWith("/api/lessons/view/")){
+//            return true;
+//        }
 //
 //        return false;
 //    }
@@ -56,8 +56,6 @@
 //        String authHeaderStr = request.getHeader("Authorization");
 //
 //        try{
-//            if (authHeaderStr != null && authHeaderStr.startsWith("Bearer ")) {
-//
 //            //Barer accesstoken...
 //            String accessToken = authHeaderStr.substring(7);
 //            Map<String,Object> claims = JWTUtil.validateToken(accessToken);
@@ -85,15 +83,6 @@
 //            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 //
 //            filterChain.doFilter(request,response);
-//
-//            } else {
-//                // authHeaderStr이 null이거나 "Bearer "로 시작하지 않을 때의 처리
-//                // 예를 들어, 로그인하지 않은 사용자에게 접근 권한이 없음을 알릴 수 있음
-//                // 또는 필요에 따라 다른 처리를 수행할 수 있음
-//                log.error("Invalid Authorization header");
-//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-//            }
-//
 //
 //        }catch(Exception e){
 //            log.error("JWT CHECK ERROR...............");

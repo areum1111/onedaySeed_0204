@@ -1,11 +1,8 @@
 package com.store.onedaySeed.controller;
 
 import com.store.onedaySeed.dto.HostDto;
-import com.store.onedaySeed.dto.UserDto;
 import com.store.onedaySeed.entity.Host;
-import com.store.onedaySeed.entity.User;
 import com.store.onedaySeed.service.HostService;
-import com.store.onedaySeed.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,18 +23,26 @@ import java.util.Map;
 public class HostController {
         private final HostService hostService;
 
-        // 호스트 상세 조회(프로필)
-//    @GetMapping("/api/user/{userId}")
-//    public UserDto userDetail(@PathVariable("userId") String userId) {
-//        User user = userService.findOne(userId);
-//        UserDto userDto = new UserDto(user);
-//
-//        return userDto;
-//    }
-    
+        private String newHostNum;
+
+    // 로그인 된 호스트 아이디 받기
+    @PostMapping("/api/sendHostNum")
+    public ResponseEntity<?> sendUserId(@RequestBody Map<String, String> requestBody) {
+        try {
+            String hostNum = requestBody.get("hostNum");
+            newHostNum = hostNum;
+            System.out.println("받은 사용자 ID: " + hostNum);
+            return ResponseEntity.ok("사용자 ID 전송 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+        
+        
+        // 프로필 조회
         @GetMapping("/api/host")
         public HostDto hostDetail() {
-            Host host = hostService.findOne("12345");
+            Host host = hostService.findOne(newHostNum);
             HostDto hostDto = new HostDto(host);
 
             return hostDto;

@@ -9,11 +9,18 @@
   font-family: 'GmarketSansMedium', sans-serif;
 }
 
-.purchase-box{
-  width: 80%;
-  margin: 20px auto;
+.title{
+  color: #70AF85;
 }
 
+.purchase-box{
+  width: 80%;
+  margin: 20px 20px;
+}
+
+.title{
+  margin: auto 15px;
+}
 .class-img{
   width: 200px;
   height: 200px;
@@ -27,7 +34,7 @@
 }
 
 .class-info{
-  background-image: url('../../basic/img/sports.jpg');
+  background-image: url('../../img/sports.jpg');
 }
 
 .class-name{
@@ -39,9 +46,15 @@
 }
 
 .class-status{
-  width: 100%;
+  clear: both;
+  width: 20%;
   height: 50px;
-  margin: 20px auto;
+  margin: 30px auto;
   border-radius: 10px;
-  border: gray solid 1px;
+  border: #70AF85 solid 1px;
+  background-color: #70AF85;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,5 +1,4 @@
 
-
 .loginBox{
   width: 350px;
   height: 400px;
@@ -11,6 +10,7 @@
       justify-content: center;
       text-align: center;
       margin: 30px;
+      color: #70AF85;
     }
 
 }
@@ -36,7 +36,9 @@
     width: 80px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid gray  ;
+    border: 1px solid #70AF85  ;
+    color: white;
+    background-color: #70AF85;
   }
 }
 
@@ -63,11 +65,16 @@
   width: 300px;
   height: 40px;
   border-radius: 10px;
-  border: gray solid 1px;
+  border: #70AF85 solid 1px;
  }
  a{
   text-decoration-line: none;
   color: black;
  }
+}
+
+.another-btn{
+  background-color: #70AF85;
+  color: white;
 }
 

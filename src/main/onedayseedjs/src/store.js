@@ -1,8 +1,21 @@
-import {configureStore} from "@reduxjs/toolkit";
-import loginSlice from "./slices/loginSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import loginReducer from './slices/loginSlice';
+import hostLoginReducer from './slices/hostLoginSlice';
 
-export default configureStore({
+const preloadedState = localStorage.getItem('reduxState')
+    ? JSON.parse(localStorage.getItem('reduxState'))
+    : {};
+export const store = configureStore({
     reducer: {
-        "loginSlice":loginSlice
-    }
-})
+        login: loginReducer,
+        hostLogin: hostLoginReducer,
+        // Add other reducers here
+    },preloadedState,
+});
+
+store.subscribe(() => {
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+});
+
+export default store;
+

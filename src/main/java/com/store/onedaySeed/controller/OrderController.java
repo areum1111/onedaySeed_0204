@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-    
+
     // 구매내역 조회하기 (로그인 정보가 없어서 일단 Principal 제외)
     // 썸네일 이미지 가져오는 것도 필요
     @GetMapping("/api/orders")

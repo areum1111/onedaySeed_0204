@@ -8,8 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class ServletConfig implements WebMvcConfigurer {
-    //LocalDateFormatter 클래스의 LocalDate 객체를 문자열로 변환하고 그 반대로 변환
-    //컨트롤러에서 LocalDate 타입의 데이터를 문자열로 전달하거나 반대로 받을 때 자동으로 변환
     @Override
     public void addFormatters(FormatterRegistry registry){
         registry.addFormatter(new LocalDateFormatter());
@@ -20,11 +18,14 @@ public class ServletConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("*") //"http://localhost:3000"
                 .allowedMethods("HEAD","GET","POST","PUT","DELETE","OPTIONS")
                 .maxAge(300)
                 .allowedHeaders("Authorization","Cache-Control","Content-Type");
     }
 
+
+    // allowedOrigins: 스프링부트 서버의 Origin은 'http://localhost:8080'
+    //                 서버에 요청을 보낸 React의 Origin은'http://localhost:3000' 오리진 요청에 대한 허용
 
 }

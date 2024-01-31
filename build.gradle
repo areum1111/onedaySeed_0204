@@ -41,8 +41,9 @@ dependencies {
 	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '5.0.0'
 	implementation group: 'com.querydsl', name: 'querydsl-core', version: '5.0.0'
-	implementation 'org.springframework.boot:spring-boot-starter-security:3.2.1'
-	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.2.1'
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '6.2.1'
+//	implementation 'org.springframework.boot:spring-boot-starter-security:3.2.1'
+//	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.2.1'
 
 	implementation 'com.google.code.gson:gson:2.10.1'
 

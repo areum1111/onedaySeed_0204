@@ -7,11 +7,11 @@
 
 img {
     /* 상우하좌 */
-    margin: 30px 30px 50px 30px;
+    margin: 10px 30px 50px 30px;
     /* margin: 0 auto; */
 }
 
-form {
+form{
     /* align-items: center; */
     margin: 0 auto;
     width: 500px;
@@ -22,5 +22,9 @@ form {
 #modify {
     background-color: #70AF85;
     border: none;
-    margin-top: 20px;
+    margin: 10px;
+}
+
+.name {
+    font-size: 20px;
 }

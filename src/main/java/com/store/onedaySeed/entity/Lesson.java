@@ -2,12 +2,10 @@ package com.store.onedaySeed.entity;
 
 import com.store.onedaySeed.constant.LessonStatus;
 import exception.OutOfLimitedException;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name="lesson")
@@ -49,15 +47,31 @@ public class Lesson extends BaseEntity{
         int restLimited = this.lessonLimited-lessonLimited;
         if(restLimited < 0){
             throw new OutOfLimitedException(this.lessonName+" 클래스의 자리가 부족합니다. 현재 남은 인원수 : "+ this.lessonLimited);
-
         }
         this.lessonLimited=restLimited;
-        
+
         // 재고 수량 0이면 품절 상태
         if (restLimited == 0) {
             this.lessonStatus = LessonStatus.SOLD_OUT;
         }
     }
+
+//    public void removeLimited(int lessonLimited) {
+//        int restLimited = this.lessonLimited-lessonLimited;
+//        if(restLimited < 0){
+//            try {
+//                throw new OutOfLimitedException(this.lessonName+" 클래스의 자리가 부족합니다. 현재 남은 인원수 : "+ this.lessonLimited);
+//            } catch (OutOfLimitedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        this.lessonLimited=restLimited;
+//
+//        // 재고 수량 0이면 품절 상태
+//        if (restLimited == 0) {
+//            this.lessonStatus = LessonStatus.SOLD_OUT;
+//        }
+//    }
 
     //주문시 재고 부족 하면 장바구니에 담기지 않게 하기
     public void removeLimited1(int lessonLimited) throws OutOfLimitedException {
