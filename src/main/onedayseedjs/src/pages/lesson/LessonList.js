@@ -33,6 +33,7 @@ function LessonList2() {
                     <img src="/images/boonga.jpg" className="card-img-top" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{lesson.lessonName}</h5>
+                      <h5 className="card-title">{lesson.lessonCategory}</h5>
                       <a href={`/lesson/detail/${lesson.lessonId}`} className="btn btn-primary">
                         구매 상세 보기
                       </a>

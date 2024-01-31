@@ -110,6 +110,8 @@ function LessonForm() {
               </label>
             </div>
             <Button type='submit'>저장</Button>
+            <Button type='submit'>수정</Button>
+             <button className='btn w-btn-red' type='submit'>삭제</button>
           </form>
         </div>
       </BasicLayout>

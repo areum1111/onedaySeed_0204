@@ -37,10 +37,11 @@ public class LessonController {
 //        return lessons;
 //    }
 
-//    @DeleteMapping(value = "/lesson/{lessonId}")
-//    public @ResponseBody ResponseEntity deleteLesson(@PathVariable("lessonId") Long lessonId, Model model){
-//
-//    }
+    @DeleteMapping(value = "/lesson/{lessonId}")
+    public ResponseEntity<Long> deleteLesson(@PathVariable("lessonId") Long lessonId){
+        lessonService.deleteLesson(lessonId);
+        return ResponseEntity.ok(lessonId);
+    }
 
     //클래스 등록페이지(메인 페이지에서 등록하기 누르면 여기로 이동)
     @PostMapping(value = "/lesson/new")
