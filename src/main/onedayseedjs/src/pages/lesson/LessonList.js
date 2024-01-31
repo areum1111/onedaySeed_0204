@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BasicLayout from "../../layouts/BasicLayout"
 import axios from 'axios';
 
-function LessonList() {
+function LessonList2() {
 
   const [lessonList, setLessonList] = useState([]);
 
@@ -30,22 +30,23 @@ function LessonList() {
               {lessonList.map((lesson) => (
                 <div className="col-lg-6" key={lesson.lessonId}>
                   <div className="card" style={{ width: '30rem' }}>
-                    <img src="/images/fox.JPG" className="card-img-top" alt="..." />
+                    <img src="/images/boonga.jpg" className="card-img-top" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{lesson.lessonName}</h5>
                       <a href={`/lesson/detail/${lesson.lessonId}`} className="btn btn-primary">
                         구매 상세 보기
                       </a>
                     </div>
-                  </div>
+                  </div><br/>
                 </div>
               ))}
             </div>
           </div>
         </section>
+    
       </BasicLayout>
     </div>
   );
 }
 
-export default LessonList;
+export default LessonList2;

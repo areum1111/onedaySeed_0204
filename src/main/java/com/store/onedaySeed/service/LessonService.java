@@ -30,11 +30,6 @@ public class LessonService {
     public Long saveLesson(LessonDto lessonDto){
         Lesson lesson = lessonDto.createLesson();
         lessonRepository.save(lesson);
-        System.out.println(lesson.getLessonName());
-        System.out.println(lesson.getLessonCategory());
-        System.out.println(lesson.getLessonId());
-        System.out.println(lesson.getLessonSchedule());
-        System.out.println(lessonDto.getLessonId());
         return lesson.getLessonId();
     }
     public List<LessonDto> getAllLesson() {
@@ -64,9 +59,10 @@ public class LessonService {
         return lessonRepository.findAll();
     }
 
-    public Lesson getLessonById(Long lessonId){
-        return  lessonRepository.findById(lessonId)
-                .orElseThrow(EntityNotFoundException::new);
+    public LessonDto getLessonDetail(Long lessonId) {
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new EntityNotFoundException("Lesson not found with id: " + lessonId));
+        return convertToDto(lesson);
     }
 
 //    public List<LessonDto> getAllLesson() {

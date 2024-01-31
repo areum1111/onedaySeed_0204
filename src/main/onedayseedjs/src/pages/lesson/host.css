@@ -1,22 +1,117 @@
-header {
+.cook-thum {}
+
+
+.styled-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 75px;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* 활성화된 상태 스타일 */
+select:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.7);
+}
+
+/* 드롭다운 화살표 스타일링 */
+select::after {
+    content: '\25BC';
+    /* 화살표 모양 */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #333;
+    pointer-events: none;
+}
+
+.btn-select {
+    width: 200px;
+    border: 1px solid #C4C4C4;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background-size: 12px 8px;
+}
+
+.button {
+    border: initial;
+    border-radius: initial;
+    background-color: initial;
+    margin: 0;
+    padding: 0;
+    text-align: initial;
+}
+
+.styled-input2 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 500px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.styled-date {
+    border: none;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background: no-repeat right 10px center / 35px auto;
+    background-color: #a4dd94;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 100%;
+    margin-bottom: 20px;
+
+}
+
+/* header {
     background-color: #333;
     color: #fff;
     padding: 10px;
     text-align: center;
-}
+} */
 
 #center {
     align-items: center;
 }
 
 .title-word {
-    color: steelblue;
+    color: rgb(134, 194, 107);
     padding: 10px;
     text-align: center;
     text-decoration: double;
     size: 20px;
     font-size: 2rem;
-    align-items: center;
+    text-decoration-line: none;
 }
 
 .fox-a {

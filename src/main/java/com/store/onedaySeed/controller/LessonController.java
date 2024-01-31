@@ -24,19 +24,18 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/host")
 @RequiredArgsConstructor
-@Log4j2
 public class LessonController {
 
     private final LessonService lessonService;
 
 
     //호스트로 로그인 시 등록한 클래스들 전부 보이는 페이지
-    @GetMapping(value = "/lesson/main")
-    public List<LessonDto> getAllLessons(){
-        List<LessonDto> lessons = lessonService.getAllLesson();
-
-        return lessons;
-    }
+//    @GetMapping(value = "/lesson/main")
+//    public List<LessonDto> getAllLessons(){
+//        List<LessonDto> lessons = lessonService.getAllLesson();
+//
+//        return lessons;
+//    }
 
 //    @DeleteMapping(value = "/lesson/{lessonId}")
 //    public @ResponseBody ResponseEntity deleteLesson(@PathVariable("lessonId") Long lessonId, Model model){
@@ -50,15 +49,15 @@ public class LessonController {
         return ResponseEntity.ok(lessonService.saveLesson(lessonDto));
     }
 
-    @GetMapping(value = "/lesson/list")
+    @GetMapping(value = {"/lesson/list", "/lesson/main"})
     public List<Lesson> getAllSellLesson(){
         return lessonService.getAllLessonss();
     }
 
     //클래스 구매 상세 페이지
     @GetMapping(value = "/lesson/detail/{lessonId}")
-    public Lesson lessonDetail (@PathVariable("lessonId") Long lessonId){
-        return lessonService.getLessonById(lessonId);
+    public LessonDto lessonDetail (@PathVariable("lessonId") Long lessonId){
+        return lessonService.getLessonDetail(lessonId);
     }
 
 
