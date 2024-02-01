@@ -5,19 +5,17 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import {useDispatch, useSelector} from "react-redux";
-import {login as loginAction} from "../../slices/loginSlice";
+import {hostLogin as hostLoginAction} from "../../slices/hostLoginSlice";
 
 
 const hostInitState={
     hostNum:"",
     password:""
 }
-
-
 const HostLoginPage = () => {
     const [login,setLogin] = useState({...hostInitState});
 
-    const isHostLoggedIn = useSelector((state) => state.login.isHostLoggedIn);
+    const isHostLoggedIn = useSelector((state) => state.hostLogin.isHostLoggedIn);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,6 +35,15 @@ const HostLoginPage = () => {
             // 로그인 상태인 경우 홈페이지로 이동
             navigate("/");
         }
+
+        const hostName = localStorage.getItem("hostName");
+        if (hostName) {
+            // 사용자 이름이 있다면, 로그인 폼에 설정
+            setLogin((prevLogin) => ({
+                ...prevLogin,
+                hostName: hostName
+            }));
+        }
     }, [navigate]);
 
 
@@ -49,10 +56,19 @@ const HostLoginPage = () => {
         }));
     };
 
-    // 서버로 사용자 ID 전송
+    //서버로 사용자 ID 전송(마이페이지)
     const sendUserIdToServer = async (hostNum) => {
         try {
             await axios.post("/api/sendHostNum", { hostNum });
+        } catch (error) {
+            console.error('서버로 사용자 ID 전송 실패:', error);
+        }
+    };
+
+    //서버로 사용자 ID 전송(레슨)
+    const sendUserIdToLesson = async (hostNum) => {
+        try {
+            await axios.post("/api/lesson/sendHostNum", { hostNum });
         } catch (error) {
             console.error('서버로 사용자 ID 전송 실패:', error);
         }
@@ -62,7 +78,14 @@ const HostLoginPage = () => {
         // 새로고침 방지
         e.preventDefault();
 
-
+        if (!login.hostNum) {
+            alert("사업자번호를 입력해주세요.");
+            return;
+        }
+        if (!login.password) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
 
         try{
             const response = await axios.post("/api/hostLogin",{
@@ -80,11 +103,17 @@ const HostLoginPage = () => {
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
 
+                const { hostId, hostName } = response.data;
+
                 // 로그인 성공 - 서버로 사용자ID 전송
                 sendUserIdToServer(login.hostNum);
+                sendUserIdToLesson(login.hostNum);
 
                 localStorage.setItem("isHostLoggedIn", true);
-                dispatch(loginAction({ hostNum: login.hostNum }));
+                dispatch(hostLoginAction({
+                    hostNum: login.hostNum,
+                    hostName:  login.hostName,
+                }));
 
                 navigate("/");
             }
@@ -92,7 +121,13 @@ const HostLoginPage = () => {
             if (error.response) {
                 // 서버 응답이 에러인 경우
                 console.error('Error submitting form:', error.response.data);
+                // console.log(login.hostNum);
+                // console.log(login.password);
                 // 클라이언트에서 에러 메시지 처리 로직 추가
+                alert(JSON.stringify(error.response.data));
+                //글자 자르기
+
+
             } else if (error.request) {
                 // 요청이 전혀 이루어지지 않은 경우
                 console.error('Request error:', error.request);

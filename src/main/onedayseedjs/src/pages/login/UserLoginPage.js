@@ -37,6 +37,17 @@ const UserLoginPage =()=>{
             // 로그인 상태인 경우 홈페이지로 이동
             navigate("/");
         }
+
+        const userName = localStorage.getItem("userName");
+        if (userName) {
+            // 사용자 이름이 있다면, 로그인 폼에 설정
+            setLogin((prevLogin) => ({
+                ...prevLogin,
+                userName: userName
+            }));
+        }
+
+
     }, [navigate]);
 
 
@@ -49,10 +60,28 @@ const UserLoginPage =()=>{
         }));
     };
 
-    // 서버로 사용자 ID 전송
+    // 서버로 사용자 ID 전송(마이페이지)
     const sendUserIdToServer = async (userId) => {
         try {
           await axios.post("/api/sendUserId", { userId });
+        } catch (error) {
+          console.error('서버로 사용자 ID 전송 실패:', error);
+        }
+      };
+
+      // 서버로 사용자 ID 전송(카트)
+      const sendUserIdToCart = async (userId) => {
+        try {
+          await axios.post("/api/cart/sendUserId", { userId });
+        } catch (error) {
+          console.error('서버로 사용자 ID 전송 실패:', error);
+        }
+      };
+
+      // 서버로 사용자 ID 전송(오더)
+      const sendUserIdToOrder = async (userId) => {
+        try {
+          await axios.post("/api/order/sendUserId", { userId });
         } catch (error) {
           console.error('서버로 사용자 ID 전송 실패:', error);
         }
@@ -62,6 +91,15 @@ const UserLoginPage =()=>{
 
         // 새로고침 방지
         e.preventDefault();
+
+        if (!login.userId) {
+            alert("아이디를 입력해주세요.");
+            return;
+        }
+        if (!login.password) {
+            alert("비밀번호를 입력해주세요.");
+            return;
+        }
 
         // console.log(login.userId);
         // console.log(login.password);
@@ -80,23 +118,36 @@ const UserLoginPage =()=>{
 
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
-                console.log(login.userId.userName);
-                console.log(login.userId);
+
+                const { userId, userName } = response.data;
+
+                // console.log("가지고 가는 유저 아이디와 이름 : ")
+                // console.log(userId,userName);
 
                 // 로그인 성공 - 서버로 사용자ID 전송
                 sendUserIdToServer(login.userId);
+                sendUserIdToCart(login.userId);
+                sendUserIdToOrder(login.userId);
 
                 localStorage.setItem("isLoggedIn", true);
-                dispatch(loginAction({ userId: login.userId }));
+                dispatch(loginAction({
+                    userId: login.userId,
+                    userName: login.userName, // userName 정보를 Redux 상태에 저장 , 해당 부분의 login은 현재페이지의 값 아닌가?
+                }));
+
 
                 navigate("/");
-
-
             }
+
         } catch (error) {
             if (error.response) {
                 // 서버 응답이 에러인 경우
                 console.error('Error submitting form:', error.response.data);
+                // 에러 메시지가 있는 경우, 해당 메시지를 alert 창에 표시
+                alert(JSON.stringify(error.response.data));
+                //글자 자르기
+                return;
+                // alert(error.response.data);
                 // 클라이언트에서 에러 메시지 처리 로직 추가
             } else if (error.request) {
                 // 요청이 전혀 이루어지지 않은 경우

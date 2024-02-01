@@ -18,15 +18,48 @@ import java.util.Map;
 public class CartController {
 
     private final CartService cartService;
+    private String newUserId;
 
-    // 장바구니 추가 // 남아있는 수량 체크(그 이상으로 담으면 불가 + alert)
-    // 로그인 확인
+    // 로그인 된 유저 아이디 받기
+    @PostMapping("/api/cart/sendUserId")
+    public ResponseEntity<?> sendUserId(@RequestBody Map<String, String> requestBody) {
+        try {
+            String userId = requestBody.get("userId");
+            newUserId = userId;
+            System.out.println("받은 사용자 ID: " + userId);
+            return ResponseEntity.ok("사용자 ID 전송 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-    // 장바구니 조회 (로그인 정보가 없어서 일단 Principal 제외)
-    // 썸네일 이미지 가져오는 것도 필요
+    // 장바구니 담기
+    @PostMapping("/api/addCart")
+    public ResponseEntity<String> addToCart(@RequestBody CartDto cartDto) {
+        try {
+            if (newUserId == null) {
+                return ResponseEntity.badRequest().body("로그인이 필요합니다.");
+            }
+
+            boolean addedToCart = cartService.addToCart(newUserId, cartDto.getLessonId(), cartDto.getCount());
+
+            if (addedToCart) {
+                return ResponseEntity.ok("장바구니에 강의가 추가되었습니다.");
+            } else {
+                return ResponseEntity.badRequest().body("장바구니에 이미 해당 강의가 있습니다.");
+            }
+        }catch (OutOfLimitedException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("장바구니에 강의를 추가하는 중에 오류가 발생했습니다.");
+        }
+    }
+
+
+    // 장바구니 조회
     @GetMapping("/api/cart")
     public List<CartDto> cartList() {
-        List<CartDto> cartDtoList = cartService.getCartList("hong");
+        List<CartDto> cartDtoList = cartService.getCartList(newUserId);
         return cartDtoList;
     }
 
@@ -68,11 +101,11 @@ public class CartController {
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
     }
 
-    // 주문하기 (로그인 정보가 없어서 일단 Principal 제외)
+    // 주문하기
     @PostMapping("/api/cart/order/{cartItemId}")
     public @ResponseBody ResponseEntity orderCartItem(@PathVariable("cartItemId") Long cartItemId) {
         try {
-            Long orderId = cartService.orderCartItem(cartItemId, "hong");
+            Long orderId = cartService.orderCartItem(cartItemId, newUserId);
             return new ResponseEntity<>(orderId, HttpStatus.OK);
         } catch (OutOfLimitedException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -8,7 +8,13 @@ import {useNavigate} from "react-router-dom";
 
 const NewHostPage = () =>{
 
-    const [newMember,setNewMember] = useState({});
+    const [newMember,setNewMember] = useState({
+        hostNum:"",
+        password:"",
+        hostName:"",
+        phoneNum:"",
+
+    });
 
     const fetchData = async ()=> {
         try{
@@ -27,10 +33,6 @@ const NewHostPage = () =>{
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
-
-
-
 
         setNewMember((prevNewMember) => ({
             ...prevNewMember,
@@ -72,12 +74,10 @@ const NewHostPage = () =>{
             return;
         }
 
-
-
-        console.log(newMember.hostNum);
-        console.log(newMember.password);
-        console.log(newMember.hostName);
-        console.log(newMember.phoneNum);
+        // console.log(newMember.hostNum);
+        // console.log(newMember.password);
+        // console.log(newMember.hostName);
+        // console.log(newMember.phoneNum);
 
         try {
             const response = await axios.post("/api/hostNew", {
@@ -92,6 +92,9 @@ const NewHostPage = () =>{
             }
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
+
+                const{hostNum, hostName} =  response.data;
+                localStorage.setItem("hostName", newMember.hostName); // 사용자 이름을 로컬 스토리지에 저장
                 fetchData();
 
                 navigate("/host/login");

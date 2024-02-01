@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+
 import BasicLayout from "../../layouts/BasicLayout"
 import axios from 'axios';
 
 function LessonForm() {
+  // 호스트 로그인 구현시 호스트 번호 받을 수 있게 변경 필요
+  const [hostNum, setHostNum] = useState("");
   const [lessonName, setLessonName] = useState("");
   const [lessonCategory, setLessonCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -22,8 +24,12 @@ function LessonForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // 기본 폼 제출 방지
+    
+    // 임의로 넣어놓은 hostNum
+    setHostNum("12345");
 
     const dataToSend = {
+      hostNum,
       lessonName,
       lessonCategory,
       price,
@@ -35,7 +41,9 @@ function LessonForm() {
     axios.post('/host/lesson/new', dataToSend
     )
       .then(response => {
-        console.log('서버로부터의 응답:', response.data);
+        console.log('서버로부터의 응답:', response.data.lessonName);
+        alert("클래스 정보가 저장되었습니다");
+        window.location.reload();
       })
       .catch(error => {
         console.error('에러 발생:', error);
@@ -52,7 +60,7 @@ function LessonForm() {
             <div>
               <label>
                 <h4>클래스 이름</h4>
-                <input onChange={(e) => handleInputChange(e, setLessonName)} placeholder='제목을 입력해 주세요.' required />
+                <input className='styled-input2' onChange={(e) => handleInputChange(e, setLessonName)} placeholder='제목을 입력해 주세요.' required />
               </label>
               <hr />
             </div>
@@ -60,32 +68,22 @@ function LessonForm() {
             <div>
               <label>
                 <h4>카테고리</h4>
-                <input type='radio' value='cook' name='category' onChange={(e) => handleInputChange(e, setLessonCategory)} />
-                요리
-              </label>
-              <label>
-                <input type='radio' value='art' name='category' onChange={(e) => handleInputChange(e, setLessonCategory)} required />
-                미술
-              </label>
-              <label>
-                <input type='radio' value='music' name='category' onChange={(e) => handleInputChange(e, setLessonCategory)} />
-                음악
-              </label><br />
-              <label>
-                <input type='radio' value='sport' name='category' onChange={(e) => handleInputChange(e, setLessonCategory)} />
-                운동
-              </label>
-              <label>
-                <input type='radio' value='baking' name='category' onChange={(e) => handleInputChange(e, setLessonCategory)} />
-                베이킹
-              </label><br />
+                <select className='' onChange={(e) => handleInputChange(e, setLessonCategory)} defaultValue="" required>
+                  <option value="" disabled>선택</option>
+                  <option value="요리">요리</option>
+                  <option value="미술">미술</option>
+                  <option value="음악">음악</option>
+                  <option value="운동">운동</option>
+                  <option value="베이킹">베이킹</option>
+                </select><br />
               <hr />
+              </label>
             </div>
 
             <div>
               <label>
                 <h4>클래스 가격</h4>
-                <input type='number' onChange={(e) => handleInputChange(e, setPrice)} placeholder='숫자만 입력해 주세요.' required /><br />
+                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setPrice)} placeholder='숫자만 입력해 주세요.' required /><br />
               </label>
               <hr />
             </div>
@@ -93,7 +91,7 @@ function LessonForm() {
             <div>
               <label>
                 <h4>제한 인원</h4>
-                <input type='number' onChange={(e) => handleInputChange(e, setLessonLimited)} placeholder='숫자만 입력해 주세요.' required /><br />
+                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setLessonLimited)} placeholder='숫자만 입력해 주세요.' required /><br />
               </label>
               <hr />
             </div>
@@ -101,7 +99,7 @@ function LessonForm() {
             <div>
               <label>
                 <h4>클래스 시작일</h4>
-                <input type='date' onChange={(e) => handleInputChange(e, setLessonSchedule)} required /><br />
+                <input className='styled-date' type='date' onChange={(e) => handleInputChange(e, setLessonSchedule)} required /><br />
               </label>
               <hr />
             </div>
@@ -115,11 +113,9 @@ function LessonForm() {
                   <option value='SOLD_OUT'>품절</option>
                 </select><br />
                 <hr />
-              </label>
+              </label>     
             </div>
-
             <Button type='submit'>저장</Button>
-
           </form>
         </div>
       </BasicLayout>

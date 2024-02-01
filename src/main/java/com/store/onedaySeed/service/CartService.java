@@ -4,10 +4,13 @@ import com.store.onedaySeed.dto.CartDto;
 import com.store.onedaySeed.dto.CartOrderDto;
 import com.store.onedaySeed.entity.Cart;
 import com.store.onedaySeed.entity.CartItem;
+import com.store.onedaySeed.entity.Lesson;
 import com.store.onedaySeed.entity.User;
 import com.store.onedaySeed.repository.CartItemRepository;
 import com.store.onedaySeed.repository.CartRepository;
+import com.store.onedaySeed.repository.LessonRepository;
 import com.store.onedaySeed.repository.UserRepository;
+import exception.OutOfLimitedException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,60 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final OrderService orderService;
+    private final LessonRepository lessonRepository;
+    
+    // 장바구니 담기
+    @Transactional
+    public boolean addToCart(String userId, Long lessonId, int count) {
+        try {
+            if (userId == null) {
+                return false;
+            }
+
+            Lesson lesson = lessonRepository.findById(lessonId).orElse(null);
+
+            if (lesson == null) {
+                return false;
+            }
+
+            // 강의 상태 확인
+            lesson.removeLimitedCart(count);
+
+            // 장바구니에 강의 정보 추가하는 로직
+            User user = userRepository.findById(userId).orElse(null);
+
+            if (user == null) {
+                return false;
+            }
+
+            Cart cart = cartRepository.findByUser_userId(user.getUserId());
+
+            // 최초로 담는 경우 카트가 없으면 생성
+            if (cart == null) {
+                cart = new Cart();
+                cart.setUser(user);
+                cart = cartRepository.save(cart);
+            }
+
+            // 장바구니에 해당 강의가 이미 담겨있는지 확인
+            Optional<CartItem> existingCartItem = cartItemRepository.findByCartAndLesson(cart, lesson);
+
+            if (existingCartItem.isPresent()) {
+                return false;
+            }
+
+            CartItem cartItem = new CartItem();
+            cartItem.setCart(cart);
+            cartItem.setLesson(lesson);
+            cartItem.setCount(count);
+
+            cartItemRepository.save(cartItem);
+
+            return true; // 장바구니에 성공적으로 추가되었음을 반환
+        } catch (OutOfLimitedException e) {
+            return false;
+        }
+    }
 
     // 장바구니 조회
     public List<CartDto> getCartList(String userId) {

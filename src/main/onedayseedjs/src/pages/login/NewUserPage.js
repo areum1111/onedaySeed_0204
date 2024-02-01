@@ -8,7 +8,12 @@ import {useNavigate} from "react-router-dom";
 
 const NewUserPage=()=>{
 
-    const [newMember,setNewMember] = useState({});
+    const [newMember,setNewMember] = useState({
+        userId: "",
+        password: "",
+        userName: "",
+        phoneNum: ""
+    });
 
     const fetchData = async ()=> {
         try{
@@ -23,16 +28,14 @@ const NewUserPage=()=>{
         fetchData();
     }, []);
 
-
     const navigate = useNavigate();
+
+
+
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
-
-
-
-
 
         setNewMember((prevNewMember) => ({
             ...prevNewMember,
@@ -76,11 +79,11 @@ const NewUserPage=()=>{
         }
 
 
-
-        console.log(newMember.userId);
-        console.log(newMember.password);
-        console.log(newMember.userName);
-        console.log(newMember.phoneNum);
+        //
+        // console.log(newMember.userId);
+        // console.log(newMember.password);
+        // console.log(newMember.userName);
+        // console.log(newMember.phoneNum);
 
         try {
             const response = await axios.post("/api/userNew", {
@@ -95,8 +98,14 @@ const NewUserPage=()=>{
             }
             if (response.data.successMessage) {
                 console.log('Form submitted successfully:', response.data.successMessage);
+
+                const { userId, userName } = response.data;
+                localStorage.setItem("userName", newMember.userName); // 사용자 이름을 로컬 스토리지에 저장
+
+
                 fetchData();
-                navigate("/user/login");
+                navigate("/user/login" ); //userName정보 가지고 가기
+                // navigate("/user/login",{ state: { userName } }); //userName정보 가지고 가기
             }
         }catch (error){
             if(error.response){

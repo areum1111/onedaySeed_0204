@@ -1,11 +1,14 @@
 package com.store.onedaySeed.repository;
 
 import com.store.onedaySeed.dto.CartDto;
+import com.store.onedaySeed.entity.Cart;
 import com.store.onedaySeed.entity.CartItem;
+import com.store.onedaySeed.entity.Lesson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
@@ -14,4 +17,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
             "where ci.cart.cartId = :cartId " +
             "order by ci.regTime desc")
     List<CartDto> findCartList(Long cartId);
+
+    Optional<CartItem> findByCartAndLesson(Cart cart, Lesson lesson);
 }

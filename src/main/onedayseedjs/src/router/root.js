@@ -17,10 +17,11 @@ const Cart1 = lazy(() => import("../pages/cart/Cart1")) // css 테스트용
 const Order =lazy(() => import("../pages/order/Order"))
 const My = lazy(() => import("../pages/profile/MyPage"))
 
-//const LessonMain = lazy(() => import("../pages/lesson/LessonMain"))
-//const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
-//const LessonList = lazy(() => import("../pages/lesson/LessonList"))
-//const LessonDetail = lazy(() => import("../pages/lesson/LessonDetail"))
+const LessonMain = lazy(() => import("../pages/lesson/LessonMain"))
+const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
+const LessonList = lazy(() => import("../pages/lesson/LessonList"))
+const LessonDetail = lazy(() => import("../pages/lesson/LessonDetail"))
+const LessonModify = lazy(() => import("../pages/lesson/LessonModify"))
 
 
 const root = createBrowserRouter([
@@ -69,22 +70,26 @@ const root = createBrowserRouter([
     path:"/order",
     element: <Suspense fallback={Loading}><Order /></Suspense>
   },
-//  {
-//    path:"/lesson/main",
-//    element:<Suspense fallback={Loading}><LessonMain/></Suspense>
-//  },
-//  {
-//    path:"/lesson/list",
-//    element: <Suspense fallback={Loading}><LessonList /></Suspense>
-//  },
-//  {
-//    path:"/lesson/form",
-//    element: <Suspense fallback={Loading}><LessonForm /></Suspense>
-//  },
-//  {
-//    path:"/lesson/detail",
-//    element: <Suspense fallback={Loading}><LessonDetail /></Suspense>
-//  },
+  {
+    path:"/lesson/main",
+    element:<Suspense fallback={Loading}><LessonMain/></Suspense>
+  },
+  {
+    path:"/lesson/list",
+    element: <Suspense fallback={Loading}><LessonList /></Suspense>
+  },
+  {
+    path:"/lesson/detail",
+    element: <Suspense fallback={Loading}><LessonDetail /></Suspense>
+  },
+  {
+    path: "/lesson/new",
+    element: <Suspense fallback={Loading}><LessonForm /></Suspense>
+  },
+  {
+    path: "/lesson/modify",
+    element: <Suspense fallback={Loading}><LessonModify /></Suspense>
+  },
   {
     // css 테스트용
     path:"/cart1",

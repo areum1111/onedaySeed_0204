@@ -3,6 +3,7 @@ import "./BasicLayout.css"
 
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../slices/loginSlice";
+import { hostLogout }from "../slices/hostLoginSlice";
 
 const BasicLayout = ({children}) => {
 
@@ -11,9 +12,12 @@ const BasicLayout = ({children}) => {
 
         const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
         const userId = useSelector((state) => state.login.userId);
+        const userName = useSelector((state) => state.login.userName);
+        // const userName22 = localStorage.getItem("userName");
 
-        const isHostLoggedIn = useSelector((state) => state.login.isHostLoggedIn);
-        const hostNum = useSelector((state) => state.login.hostNum);
+        const isHostLoggedIn = useSelector((state) => state.hostLogin.isHostLoggedIn);
+        const hostNum = useSelector((state) => state.hostLogin.hostNum);
+        const hostName = useSelector((state) => state.hostLogin.hostName);
 
         const handleClickLogout =()=>{
              localStorage.removeItem("isLoggedIn");
@@ -23,7 +27,7 @@ const BasicLayout = ({children}) => {
 
     const handleClickHostLogout =()=>{
         localStorage.removeItem("isHostLoggedIn");
-        dispatch(logout());
+        dispatch(hostLogout());
         navigate("/");
     }
 
@@ -72,13 +76,15 @@ const BasicLayout = ({children}) => {
           { isLoggedIn ?
               <>
           <li className="nav-item">
-              <a className="nav-link active" aria-current="page" >{userId}님, 반가워요!</a>
+              <a className="nav-link active" aria-current="page" >
+                  {userName}님, 반가워요!
+              </a>
           </li>
               </>
               :<></>}
 
         {/* 로그인 전 사용자에게 '로그인' 보이게 */}
-          {!( isLoggedIn  ||  isHostLoggedIn )?
+          {( !isLoggedIn  &&  !isHostLoggedIn )?
               <>
         <li className="nav-item">
           <a href="/user/login" className="nav-link" >Login</a>
@@ -88,15 +94,27 @@ const BasicLayout = ({children}) => {
 
           {/* Host */}
 
+
+
           {/*로그인한 호스트에게만 보이게*/}
           { isHostLoggedIn ?
               <>
                   <li className="nav-item">
-                      <a href={'/'} className="nav-link">My Class</a> 
+                      <a href={'/host/myPage'} className="nav-link">My Page</a>
                   {/*    레슨 파일보고 페이지 맞게 연결*/}
                   </li>
               </>
               :<></>}
+
+          {/*로그인한 호스트에게만 보이게*/}
+          {/*{ isHostLoggedIn ?*/}
+          {/*    <>*/}
+          {/*        <li className="nav-item">*/}
+          {/*            <a href={'/lesson/main'} className="nav-link">My Class</a>*/}
+          {/*            /!*    레슨 파일보고 페이지 맞게 연결*!/*/}
+          {/*        </li>*/}
+          {/*    </>*/}
+          {/*    :<></>}*/}
 
           {/*로그인한 호스트에게만 보이게*/}
           { isHostLoggedIn ?
@@ -110,9 +128,9 @@ const BasicLayout = ({children}) => {
           { isHostLoggedIn ?
               <>
                   <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" >{hostNum}님, 반가워요!</a>
+                      <a className="nav-link active" aria-current="page" >{hostName}님, 반가워요!</a>
                   </li>
-              </>
+           </>
               :<></>}
 
 
