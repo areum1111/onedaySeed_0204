@@ -9,6 +9,7 @@ const MyPage = ()=>{
 
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const userId = useSelector((state) => state.login.userId);
+  const userName = useSelector((state) => state.login.userName);
 
   const navigate = useNavigate();
 
@@ -31,10 +32,9 @@ const MyPage = ()=>{
 
     <>
       <BasicLayout>
-        {isLoggedIn ? ( // 로그인 상태를 확인하여 로그인된 경우에만 페이지 컨텐츠 표시
-            <>
+
         <h1 id="title">프로필 관리</h1>
-        
+
         <Form >
           <img src="/profile.jpg" width="200px" height="200px" alt="프로필 이미지" />
           <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -51,8 +51,7 @@ const MyPage = ()=>{
             구매내역
           </Button>
         </Form>
-            </>):(<h1>로그인 후 이용 가능합니다.</h1> // 로그인되지 않은 경우 안내 메시지 표시
-        )}
+
         </BasicLayout>
       </>
 

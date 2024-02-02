@@ -47,7 +47,7 @@ public class HostMemberController {
         if(bindingResult.hasErrors()){ // 오류가 발생하였을 경우, 클라이언트에게 오류 메시지 전송
             Map<String, Object> errors = new HashMap<>();
             // 에러 메시지와 함께 alert 메시지 추가
-            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("alertMessage", "회원가입에 실패했습니다.");
             errors.put("errors", bindingResult.getAllErrors());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
@@ -58,15 +58,15 @@ public class HostMemberController {
             hostMemberService.saveMember(host);
             // 수정 성공시, 클라이언트에게 성공 메시지 전송
             Map<String, String> successResponse = new HashMap<>();
-            successResponse.put("successMessage", "새로운 정보가 저장되었습니다.");
-            successResponse.put("alertMessage", "새로운 정보가 저장되었습니다.");
+            successResponse.put("successMessage", "회원가입 완료");
+            successResponse.put("alertMessage", "회원가입 완료");
 
             return ResponseEntity.ok(successResponse);
 
         } catch (Exception e){
             Map<String, String> errors = new HashMap<>();
             // 에러 메시지와 함께 alert 메시지 추가
-            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("alertMessage", "회원가입에 실패했습니다.");
             errors.put("errorMessage", e.getMessage());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
@@ -88,7 +88,7 @@ public class HostMemberController {
         if(bindingResult.hasErrors()){ // 오류가 발생하였을 경우, 클라이언트에게 오류 메시지 전송
             Map<String, Object> errors = new HashMap<>();
             // 에러 메시지와 함께 alert 메시지 추가
-            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("alertMessage", "로그인에 실패했습니다.");
             errors.put("errors", bindingResult.getAllErrors());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
@@ -99,12 +99,21 @@ public class HostMemberController {
             Host host = hostMemberService.findOne(hostNum);
 
             if (host == null) {
-                return ResponseEntity.badRequest().body("아이디가 없습니다.");
+                // 사업자번호가 없는 경우 클라이언트에게 알림을 전송
+                Map<String, String> errorMessage = new HashMap<>();
+                errorMessage.put("alertMessage", "로그인에 실패했습니다.");
+                errorMessage.put("errorMessage", "사업자번호가 없습니다.");
+                return ResponseEntity.badRequest().body(errorMessage);
             }
 
-            // 비밀번호를 검증한다
+            // 비밀번호를 검증
             if (!passwordEncoder.matches(hostLoginDto.getPassword(), host.getPassword())) {
-                return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
+                // 비밀번호가 일치하지 않는 경우 클라이언트에게 알림을 전송
+                Map<String, String> errorMessage = new HashMap<>();
+                //errorMessage.put("alertMessage", "로그인에 실패했습니다.");
+                errorMessage.put("errorMessage", "비밀번호가 일치하지 않습니다.");
+
+                return ResponseEntity.badRequest().body(errorMessage);
             }
 
             // 로그인 성공시, 클라이언트에게 성공 메시지 전송
@@ -117,7 +126,7 @@ public class HostMemberController {
         } catch (Exception e) {
             // 에러 메시지와 함께 alert 메시지 추가
             Map<String, String> errors = new HashMap<>();
-            errors.put("alertMessage", "변경사항 저장에 실패했습니다.");
+            errors.put("alertMessage",  "로그인에 실패했습니다.");
             errors.put("errorMessage", e.getMessage());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);

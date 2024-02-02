@@ -27,10 +27,6 @@ public class Orders extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "payment_id")
-//    private Payment payment;
-
     @Column(nullable = false , name = "order_date")
     private LocalDateTime orderDate;
 

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Validated
 public class UserController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     private String newUserId;
 
@@ -41,7 +43,7 @@ public class UserController {
     @GetMapping("/api/user")
     public UserDto userDetail() {
         User user = userService.findOne(newUserId);
-
+        System.out.println("받은 사용자 ID: " + newUserId);
         return new UserDto(user);
     }
 
@@ -59,8 +61,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
 
+        // 사용자 정보 업데이트
         try {
+                // if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+               // 새로운 비밀번호와 기존 비밀번호가 다를 경우에만 암호화하여 저장
+//                if(!passwordEncoder.matches(userDto.getPassword(), userDto.getPassword())){
+               //비밀번호 암호화 작업
+//
+//                }
+//            }else {
+//                // 비밀번호를 수정하지 않은 경우 기존의 암호화된 비밀번호를 그대로 유지
+//                userDto.setPassword(userDto.getPassword());
+//            }
+
+            String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+            userDto.setPassword(encodedPassword);
+
             userService.updateUser(userDto);
+
             // 수정 성공시, 클라이언트에게 성공 메시지 전송
             Map<String, String> successResponse = new HashMap<>();
             successResponse.put("successMessage", "새로운 정보가 저장되었습니다.");

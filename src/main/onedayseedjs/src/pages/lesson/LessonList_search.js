@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BasicLayout from '../../layouts/BasicLayout';
 
-function LessonList() {
+function LessonList3() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const searchQuery = searchParams.get('q'); // 'q'는 검색 쿼리 파라미터의 이름
@@ -66,4 +66,4 @@ function LessonList() {
     );
 }
 
-export default LessonList;
+export default LessonList3;

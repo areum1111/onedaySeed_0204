@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Validated
 public class HostController {
-        private final HostService hostService;
+    private final HostService hostService;
+    private final PasswordEncoder passwordEncoder;
 
         private String newHostNum;
 
@@ -62,6 +64,10 @@ public class HostController {
             }
 
             try {
+                //비밀번호 암호화
+                String encodedPassword = passwordEncoder.encode(hostDto.getPassword());
+                hostDto.setPassword(encodedPassword);
+
                 hostService.updateHost(hostDto);
                 // 수정 성공시, 클라이언트에게 성공 메시지 전송
                 Map<String, String> successResponse = new HashMap<>();

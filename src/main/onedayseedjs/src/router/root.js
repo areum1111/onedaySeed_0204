@@ -12,10 +12,10 @@ const NewHost = lazy(() => import("../pages/login/NewHostPage"))
 const UserProfile = lazy(() => import("../pages/profile/UserProfile"))
 const HostProfile = lazy(() => import("../pages/profile/HostProfile"))
 const Cart = lazy(() => import("../pages/cart/Cart"))
-const Cart1 = lazy(() => import("../pages/cart/Cart1")) // css 테스트용
 
 const Order =lazy(() => import("../pages/order/Order"))
 const My = lazy(() => import("../pages/profile/MyPage"))
+const MyHost = lazy(() => import("../pages/profile/HostMyPage"))
 
 const LessonMain = lazy(() => import("../pages/lesson/LessonMain"))
 const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
@@ -62,6 +62,10 @@ const root = createBrowserRouter([
     path:"/host",
     element: <Suspense fallback={Loading}><HostProfile /></Suspense>
   },
+    {
+      path:"/host/myPage",
+      element: <Suspense fallback={Loading}><MyHost /></Suspense>
+    },
   {
     path:"/cart",
     element: <Suspense fallback={Loading}><Cart /></Suspense>
@@ -89,11 +93,6 @@ const root = createBrowserRouter([
   {
     path: "/lesson/modify",
     element: <Suspense fallback={Loading}><LessonModify /></Suspense>
-  },
-  {
-    // css 테스트용
-    path:"/cart1",
-    element: <Suspense fallback={Loading}><Cart1 /></Suspense>
   },
 
 ])

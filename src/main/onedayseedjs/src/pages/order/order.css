@@ -9,8 +9,12 @@
   font-family: 'GmarketSansMedium', sans-serif;
 }
 
-.title{
-  color: #70AF85;
+#title {
+  text-align: center;
+  color: #76BA99;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
 }
 
 .purchase-box{
@@ -57,4 +61,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#my-page{ display: block;
+  justify-content: center;
+  background-color: #70AF85;
+  border: none;
+}
+
+#my-page{
+  display: block;
+  justify-content: center;
+  background-color: #70AF85;
+  border: none;
 }

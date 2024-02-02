@@ -74,7 +74,7 @@ function LessonModify() {
             <h1>클래스 수정 페이지입니다</h1><br></br>
             <div>
               <label>
-                <h4>클래스 이름</h4>
+                <h4>클래스명</h4>
                 {/* name 속성 추가 */}
                 <input name="lessonName" className='styled-input2' value={lesson.lessonName || ''} onChange={handleInputChange} required />
               </label>
@@ -101,7 +101,7 @@ function LessonModify() {
               <label>
                 <h4>클래스 가격</h4>
                 {/* name 속성 추가 */}
-                <input name="price" className='styled-input2' value={lesson.price || ''} type='number' onChange={handleInputChange} required /><br />
+                <input name="price" className='styled-input2' value={lesson.price || ''} type='number' onChange={handleInputChange} min='1' required /><br />
                 <hr />
               </label>
             </div>
@@ -110,14 +110,14 @@ function LessonModify() {
               <label>
                 <h4>제한 인원</h4>
                 {/* name 속성 추가 */}
-                <input name="lessonLimited" className='styled-input2' value={lesson.lessonLimited || ''} type='number' onChange={handleInputChange} required /><br />
+                <input name="lessonLimited" className='styled-input2' value={lesson.lessonLimited || ''} type='number' onChange={handleInputChange} min='1' required /><br />
                 <hr />
               </label>
             </div>
 
             <div>
               <label>
-                <h4>클래스 시작일</h4>
+                <h4>클래스 날짜</h4>
                 {/* name 속성 추가 */}
                 <input name="lessonSchedule" className='styled-date' value={lesson.lessonSchedule || ''} type='date' onChange={handleInputChange} required /><br />
                 <hr />

@@ -1,3 +1,5 @@
+use onedaySeed;
+
 create table host (
   host_num varchar(20) PRIMARY KEY,
   host_name varchar(20),
@@ -45,17 +47,9 @@ create table orders(
   payment_id varchar(20),
   order_date varchar(100),
   order_status varchar(255),
-  FOREIGN KEY (user_id) references user(user_id),
-  FOREIGN KEY (payment_id) references payment(payment_id)
+  FOREIGN KEY (user_id) references user(user_id)
 );
 
-create table payment(
-  payment_id int PRIMARY KEY,
-  order_id int,
-  payment_date varchar(100),
-  amount int,
-  FOREIGN KEY (order_id) references order(order_id)
-);
 
 create table lesson(
   lesson_id int PRIMARY KEY,
@@ -66,7 +60,8 @@ create table lesson(
   price int,
   lesson_limited int,
   lesson_status varchar(255),
-  lesson_detail_info text,
+  lesson_rep_img varchar(255),
+  lesson_detail_img varchar(255),
   FOREIGN KEY (host_num) references host(host_num)
 );
 

@@ -2,10 +2,6 @@ import {createSearchParams, Navigate, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {loginPostAsync, logout} from "../slices/loginSlice";
 
-
-
-//이 페이지 쓰는지 안 쓰는지 잘 모르것는디...
-
 const useCustomLogin = () => {
 
     const navigate = useNavigate()

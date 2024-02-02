@@ -104,6 +104,4 @@ public class LessonService {
             throw e;
         }
     }
-
-    // 클래스 상세조회(user)
 }

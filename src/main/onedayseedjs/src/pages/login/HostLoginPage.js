@@ -14,6 +14,7 @@ const hostInitState={
 }
 const HostLoginPage = () => {
     const [login,setLogin] = useState({...hostInitState});
+    const hostNum = useSelector((state) => state.hostLogin.hostNum);
 
     const isHostLoggedIn = useSelector((state) => state.hostLogin.isHostLoggedIn);
 
@@ -68,11 +69,12 @@ const HostLoginPage = () => {
     //서버로 사용자 ID 전송(레슨)
     const sendUserIdToLesson = async (hostNum) => {
         try {
-            await axios.post("/api/lesson/sendHostNum", { hostNum });
+            await axios.post("/api/sendLessonHostNum", { hostNum });
         } catch (error) {
             console.error('서버로 사용자 ID 전송 실패:', error);
         }
     };
+
 
     const handleSubmit = async (e) =>{
         // 새로고침 방지
@@ -105,7 +107,7 @@ const HostLoginPage = () => {
 
                 const { hostId, hostName } = response.data;
 
-                // 로그인 성공 - 서버로 사용자ID 전송
+                // 로그인 성공 - 서버로 hostNum 전송
                 sendUserIdToServer(login.hostNum);
                 sendUserIdToLesson(login.hostNum);
 

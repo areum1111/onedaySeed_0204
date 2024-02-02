@@ -13,6 +13,24 @@ function LessonForm() {
   const [lessonLimited, setLessonLimited] = useState("");
   const [lessonSchedule, setLessonSchedule] = useState();
   const [lessonStatus, setLessonStatus] = useState("");
+//  const hostNum = useSelector((state) => state.hostLogin.hostNum);
+
+  useEffect(() => {
+    const fetchHostNum = async () => {
+      try {
+        const response = await axios.get('/api/lessons/sendHostNum');
+        const hostNumFromServer = response.data;
+        console.log('HostNum from server:', hostNumFromServer);
+
+        setHostNum(hostNumFromServer);
+      } catch (error) {
+        console.error('호스트 번호 가져오기 실패:', error);
+      }
+    };
+
+    // 컴포넌트가 마운트될 때 한 번 호출
+    fetchHostNum();
+  }, []);
 
   const handleInputChange = (e, setValue) => {
     // input의 현재 값에 접근
@@ -24,9 +42,6 @@ function LessonForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // 기본 폼 제출 방지
-    
-    // 임의로 넣어놓은 hostNum
-    setHostNum("12345");
 
     const dataToSend = {
       hostNum,
@@ -59,7 +74,7 @@ function LessonForm() {
             <h1>클래스 등록 페이지입니다</h1><br></br>
             <div>
               <label>
-                <h4>클래스 이름</h4>
+                <h4>클래스명</h4>
                 <input className='styled-input2' onChange={(e) => handleInputChange(e, setLessonName)} placeholder='제목을 입력해 주세요.' required />
               </label>
               <hr />
@@ -83,7 +98,7 @@ function LessonForm() {
             <div>
               <label>
                 <h4>클래스 가격</h4>
-                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setPrice)} placeholder='숫자만 입력해 주세요.' required /><br />
+                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setPrice)} placeholder='숫자만 입력해 주세요.' min='1' required /><br />
               </label>
               <hr />
             </div>
@@ -91,14 +106,14 @@ function LessonForm() {
             <div>
               <label>
                 <h4>제한 인원</h4>
-                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setLessonLimited)} placeholder='숫자만 입력해 주세요.' required /><br />
+                <input className='styled-input2' type='number' onChange={(e) => handleInputChange(e, setLessonLimited)} placeholder='숫자만 입력해 주세요.' min='1' required /><br />
               </label>
               <hr />
             </div>
 
             <div>
               <label>
-                <h4>클래스 시작일</h4>
+                <h4>클래스 날짜</h4>
                 <input className='styled-date' type='date' onChange={(e) => handleInputChange(e, setLessonSchedule)} required /><br />
               </label>
               <hr />

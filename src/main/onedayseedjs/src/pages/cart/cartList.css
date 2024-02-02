@@ -29,6 +29,7 @@ form {
     width: 400px;
     float: left;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 Form.Label {
@@ -63,5 +64,11 @@ Form.Label {
 #order {
     margin-left: 10px;
     background-color: #AA8976;
+    border: none;
+}
+
+#my-page{ display: block;
+    justify-content: center;
+    background-color: #70AF85;
     border: none;
 }

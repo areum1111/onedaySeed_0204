@@ -65,12 +65,12 @@ function LessonDetail() {
           <fieldset style={{ textAlign: "center" }}>
             <img style={{ width: "600px", height: "600px" }} src="/boonga.jpg" width="800" />
             <p>
-              <label className='btn' htmlFor="classTitle">- 클래스 제목 : </label>
+              <label className='btn' htmlFor="classTitle">- 클래스명 : </label>
               {lessonDetail.lessonName}<br />
             </p>
 
             <p >
-              <label className='btn' htmlFor="classStartDay">- 클래스 시작일 : </label>
+              <label className='btn' htmlFor="classStartDay">- 클래스 날짜 : </label>
               {lessonDetail.lessonSchedule}<br />
             </p>
 

@@ -86,7 +86,6 @@ const UserLoginPage =()=>{
           console.error('서버로 사용자 ID 전송 실패:', error);
         }
       };
-
     const handleSubmit = async (e) => {
 
         // 새로고침 방지

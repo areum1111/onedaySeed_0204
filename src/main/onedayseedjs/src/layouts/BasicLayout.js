@@ -77,7 +77,7 @@ const BasicLayout = ({children}) => {
               <>
           <li className="nav-item">
               <a className="nav-link active" aria-current="page" >
-                  {userName}님, 반가워요!
+                  {userId}님, 반가워요!
               </a>
           </li>
               </>
@@ -128,7 +128,7 @@ const BasicLayout = ({children}) => {
           { isHostLoggedIn ?
               <>
                   <li className="nav-item">
-                      <a className="nav-link active" aria-current="page" >{hostName}님, 반가워요!</a>
+                      <a className="nav-link active" aria-current="page" >{hostNum}님, 반가워요!</a>
                   </li>
            </>
               :<></>}

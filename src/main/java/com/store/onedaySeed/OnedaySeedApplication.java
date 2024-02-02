@@ -15,8 +15,8 @@ public class OnedaySeedApplication {
 
 	// cart1은 css용
 	@GetMapping(value=
-			{"/", "/about", "/user/login", "/user/new", "/host/login", "/host/new", "/myPage", "/user", "/host", "/cart",
-			"/order", "/lesson/main", "/lesson/list", "/lesson/form", "/lesson/detail","/lesson/new", "/lesson/modify/", "/cart1"})
+			{"/", "/about", "/user/login", "/user/new", "/host/login", "/host/new", "/myPage", "/host/myPage","/user", "/host", "/cart",
+			"/order", "/lesson/main", "/lesson/list", "/lesson/form", "/lesson/detail","/lesson/new", "/lesson/modify/"})
 	public String forward() {
 		return "forward:/index.html";
 	}

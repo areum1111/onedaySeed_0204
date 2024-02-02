@@ -20,7 +20,7 @@ public class LessonController {
     private String newHostNum;
 
     // 로그인 된 호스트 아이디 받기
-    @PostMapping("/api/lesson/sendHostNum")
+    @PostMapping("/api/sendLessonHostNum")
     public ResponseEntity<?> sendUserId(@RequestBody Map<String, String> requestBody) {
         try {
             String hostNum = requestBody.get(newHostNum);
@@ -30,6 +30,11 @@ public class LessonController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/api/lessons/sendHostNum")
+    public ResponseEntity<String> lessonHostNum() {
+        return ResponseEntity.ok(newHostNum);
     }
 
     // 클래스 등록(host)
@@ -94,36 +99,6 @@ public class LessonController {
             return ResponseEntity.status(500).body(null); // 오류 발생 시 null 반환
         }
     }
-
-
-    // 클래스 상세 조회(user)
-//    @GetMapping("/user/lesson/detail/{lessonId}")
-//    public ResponseEntity<LessonDto> getUserLessonById(@PathVariable Long lessonId) {
-//        LessonDto lessonDto = lessonService.getLessonById(lessonId);
-//
-//        if (lessonDto != null) {
-//            return new ResponseEntity<>(lessonDto, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
-
-
-//
-//
-//    // 클래스 조회(user)
-//    @GetMapping(value = {"/lesson/list"})
-//    public List<Lesson> getAllSellLesson(){
-//        return lessonService.getAllLessonss();
-//    }
-//
-//    // 클래스 구매 상세 페이지(user)
-//    @GetMapping(value = "/lesson/detail/{lessonId}")
-//    public LessonDto1 lessonDetail (@PathVariable("lessonId") Long lessonId){
-//        return lessonService.getLessonDetail(lessonId);
-//    }
-
 
 
 //    @PostMapping(value = "new")

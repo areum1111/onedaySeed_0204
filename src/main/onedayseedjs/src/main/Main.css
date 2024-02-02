@@ -61,16 +61,18 @@ background-color: yellowgreen;
 border: none;
 width: 300px;
 height: 80px;
-margin-left: 300px;
+margin-left: 400px;
 margin-bottom: 20px;
 margin-top: 20px;
 border-radius: 30px;
+  font-size: 20px;
 }
 
 .btn{
-margin: 10px 50px;
-width: 200px;
+margin: 10px 70px;
+width: 230px;
 height: 80px;
+  font-size: 20px;
 }
 
 
@@ -82,72 +84,33 @@ height: 80px;
   height: 326px;
   border-radius: 10px;
   float: left;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   }
-  
+
   .mbti{
   width: 100%;
   height: 326px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: blue;
+
   border-radius: 10px;
-  
+
+
   }
-  
+
   .mbti-img{
-  background-image: url('../img/thumbnail.jpg');
-  
+  background-image: url('../img/thumbnail_pick.jpg');
+    border: 3px double green;
+
   }
 
 
 
-  /* .col-8{
-    background-color: red;
-  }
-  .col-4{
-    background-color: blue;
-  }
-   */
 
-/* .review-box{
-margin-top: 20px;
-border: 3px double green;
-margin-left: 20px;
-width: 490px;
-height: 326px;
-border-radius: 10px;
-float: left;
-}
-
-.review-header{
-display: flex;
-text-align: center;
-justify-content: center;
-margin-top: 10px;
-}
-
-.review-cover{
-width: 200px;
-height: 200px;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-background-color: blue;
-border-radius: 10px;
-margin: 20px;
-}
-
-
-.review1{
-background-image: url('../img/sports.jpg');
-float: left;
-}
-
-.review2{
-background-image: url('../img/painting.jpg');
-float: left;
-} */
 
 
 
