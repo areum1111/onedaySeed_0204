@@ -40,7 +40,7 @@ const HostMyPage = ()=>{
                         <Form >
                             <img src="/profile.jpg" width="200px" height="200px" alt="프로필 이미지" />
                             <Form.Group className="mb-3" controlId="formGroupEmail">
-                                <Form.Label className='name'>{hostName}님, 반가워요!</Form.Label>
+                                <Form.Label className='name'>{hostNum}님, 반가워요!</Form.Label>
                                 {/* <Form.Control type="text" name="userId" value={users.userId} disabled /> */}
                             </Form.Group>
                             <Button id="modify" variant="primary" type="submit" onClick={handleClickHost}>

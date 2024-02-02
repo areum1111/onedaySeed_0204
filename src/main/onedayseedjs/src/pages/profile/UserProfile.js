@@ -8,10 +8,15 @@ import {useNavigate} from "react-router-dom";
 
 
 function Profile() {
-    const [users, setUsers] = useState({});
+    const [users, setUsers] = useState({
+        userId: '',
+        userName: '',
+        password: '', // 초기 비밀번호 입력란을 비웁니다.
+        phoneNum: ''
+    });
+    const [isPasswordEmpty, setIsPasswordEmpty] = useState(false); // 비밀번호 입력 여부 상태
 
     const navigate = useNavigate();
-
 
     const fetchData = async () => {
       try {
@@ -32,10 +37,20 @@ function Profile() {
         ...prevUsers,
         [name]: value,
       }));
+
+        if (name === 'password') {
+            setIsPasswordEmpty(value.trim() === ''); // 비밀번호 입력 여부 확인
+        }
+
     };
   
     const handleSubmit = async (e) => {
       e.preventDefault(); // 기본 폼 제출 방지
+
+        if (isPasswordEmpty) {
+            alert('비밀번호를 입력해주세요.');
+            return;
+        }
       
       try {
         const response = await axios.post('/api/user', {
@@ -86,14 +101,15 @@ function Profile() {
             <Form.Control type="text" name="userId" value={users.userId} disabled />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>비밀번호</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              value={users.password || ''}
-              placeholder="Enter New Password"
-              onChange={handleInputChange}
-            />
+              <Form.Label>비밀번호</Form.Label>
+              <Form.Control
+                  type="password"
+                  name="password"
+                  value={users.password || ''}
+                  placeholder="비밀번호를 입력해주세요."
+                  onChange={handleInputChange}
+              />
+              {isPasswordEmpty && <Form.Text className="text-danger">비밀번호를 입력해주세요.</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formGroupName">
             <Form.Label>이름</Form.Label>
