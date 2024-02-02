@@ -1,3 +1,7 @@
+
+
+//store.js
+
 import { configureStore } from '@reduxjs/toolkit';
 import loginReducer from './slices/loginSlice';
 import hostLoginReducer from './slices/hostLoginSlice';

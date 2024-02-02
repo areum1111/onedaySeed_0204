@@ -52,7 +52,7 @@ const BasicLayout = ({children}) => {
           {/*   !가 붙어있어야 로그인전 화면에 노출 ! */}
 
 
-
+        {/*BasicLayout*/}
           {/* User */}
 
           {/*로그인한 사용자에게만 보이게*/}

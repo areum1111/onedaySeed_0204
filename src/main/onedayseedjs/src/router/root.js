@@ -23,6 +23,8 @@ const LessonForm = lazy(() => import("../pages/lesson/LessonForm"))
 const LessonList = lazy(() => import("../pages/lesson/LessonList"))
 const LessonDetail = lazy(() => import("../pages/lesson/LessonDetail"))
 
+const ApiTest = lazy(()=>import("../pages/login/ApiTest"))
+
 
 const root = createBrowserRouter([
 
@@ -96,6 +98,10 @@ const root = createBrowserRouter([
     path:"/cart1",
     element: <Suspense fallback={Loading}><Cart1 /></Suspense>
   },
-
+  {
+    // api 테스트용
+    path:"/apiTest",
+    element: <Suspense fallback={Loading}><ApiTest /></Suspense>
+  },
 ])
 export default root;

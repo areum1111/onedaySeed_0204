@@ -37,6 +37,8 @@ public class UserMemberController {
     }
 
 
+
+
     @PostMapping("/api/userNew")
     public ResponseEntity<?> userNew(@RequestBody @Valid UserMemberFormDto userMemberFormDto,BindingResult bindingResult) {
 

@@ -17,6 +17,16 @@ spring:
       defer-datasource-initialization: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/onedayseed?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: mysql
+    url: jdbc:mysql://onedayseeddb.cbxzrmbefoix.ap-northeast-2.rds.amazonaws.com:3306/onedayseed?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: onedayseed
+    password: 1dayseed
+
+
+
+
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/onedayseed?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
+#    password: mysql
